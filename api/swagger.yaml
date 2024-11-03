@@ -1,0 +1,547 @@
+---
+swagger: "2.0"
+info:
+  description: "A simple wander-wise API definition"
+  version: "1.0.11"
+  title: "WanderWise - OpenAPI 3.0"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    name: "WanderWise"
+    email: "info@wanderwise.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+- name: "User"
+  description: "Operations about User"
+- name: "Landmarks"
+  description: "Operations about Landmarks"
+- name: "Reviews"
+  description: "Operations about Reviews"
+- name: "Experiences"
+  description: "Operations about Experiences"
+- name: "Photos"
+  description: "Operations about Photos"
+- name: "Interactive_map"
+  description: "Operations about Interactive Map"
+paths:
+  /user:
+    post:
+      tags:
+      - "User"
+      summary: "Create user"
+      description: "This can only be done by the logged in user."
+      operationId: "createUser"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "User"
+  /user/createWithList:
+    post:
+      tags:
+      - "User"
+      summary: "Creates list of users with given input array"
+      description: "Creates list of users with given input array"
+      operationId: "createUsersWithListInput"
+      parameters: []
+      responses:
+        "200":
+          description: "Successful operation"
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "User"
+  /user/login:
+    get:
+      tags:
+      - "User"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "loginUser"
+      parameters:
+      - name: "username"
+        in: "query"
+        description: "The user name for login"
+        required: false
+      - name: "password"
+        in: "query"
+        description: "The password for login in clear text"
+        required: false
+      responses:
+        "200":
+          description: "successful operation"
+          headers:
+            X-Rate-Limit:
+              description: "calls per hour allowed by the user"
+            X-Expires-After:
+              description: "date in UTC when token expires"
+        "400":
+          description: "Invalid username/password supplied"
+      x-swagger-router-controller: "User"
+  /user/logout:
+    get:
+      tags:
+      - "User"
+      summary: "Logs out current logged in user session"
+      description: ""
+      operationId: "logoutUser"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "User"
+  /user/{username}:
+    get:
+      tags:
+      - "User"
+      summary: "Get user by user name"
+      description: ""
+      operationId: "getUserByName"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be fetched. Use user1 for testing. "
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid username supplied"
+        "404":
+          description: "User not found"
+      x-swagger-router-controller: "User"
+    put:
+      tags:
+      - "User"
+      summary: "Update user"
+      description: "This can only be done by the logged in user."
+      operationId: "updateUser"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "name that need to be deleted"
+        required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "User"
+    delete:
+      tags:
+      - "User"
+      summary: "Delete user"
+      description: "This can only be done by the logged in user."
+      operationId: "deleteUser"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be deleted"
+        required: true
+      responses:
+        "400":
+          description: "Invalid username supplied"
+        "404":
+          description: "User not found"
+      x-swagger-router-controller: "User"
+  /landmarks:
+    post:
+      tags:
+      - "Landmarks"
+      summary: "Create a landmark"
+      description: "FR6: Add landmark\n"
+      operationId: "createLandmark"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "Landmarks"
+  /landmarks/{landmarkId}:
+    get:
+      tags:
+      - "Landmarks"
+      summary: "Get landmark by landmark id"
+      description: ""
+      operationId: "getLandmarkById"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "The name that needs to be fetched. Use 348 for testing. "
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid landmarkId supplied"
+        "404":
+          description: "Landmark not found"
+      x-swagger-router-controller: "Landmarks"
+    delete:
+      tags:
+      - "Landmarks"
+      summary: "Delete a landmark"
+      description: "FR7: Remove landmark\n"
+      operationId: "deleteLandmark"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "Landmark id to delete"
+        required: true
+      security:
+      - landmarks_auth:
+        - "write:landmarks"
+        - "read:landmarks"
+      responses:
+        "400":
+          description: "Invalid landmark id value"
+      x-swagger-router-controller: "Landmarks"
+  /landmarks/{landmarkId}/reviews:
+    get:
+      tags:
+      - "Landmarks"
+      - "Reviews"
+      summary: "Get reviews for the current landmark"
+      description: "FR3: View review\n"
+      operationId: "getReviewsForLandmark"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 348 for testing. "
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid landmarkId supplied"
+        "404":
+          description: "Landmark not found"
+      x-swagger-router-controller: "Landmarks"
+    post:
+      tags:
+      - "Reviews"
+      summary: "Create a review"
+      description: "FR1: Add a review\n"
+      operationId: "addReview"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 348 for testing. "
+        required: true
+      responses:
+        "200":
+          description: "review response"
+        default:
+          description: "unexpected error"
+      x-swagger-router-controller: "Reviews"
+  /landmarks/{landmarkId}/reviews/{reviewId}:
+    get:
+      tags:
+      - "Landmarks"
+      - "Reviews"
+      summary: "Get review by review id"
+      description: "FR3: View a review\n"
+      operationId: "getReviesById"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 348 for testing. "
+        required: true
+      - name: "reviewId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 23 for testing. "
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid landmarkId supplied"
+        "404":
+          description: "Landmark not found"
+      x-swagger-router-controller: "Landmarks"
+    delete:
+      tags:
+      - "Reviews"
+      summary: "Delete a review created by the user"
+      description: "FR2: Delete a review\n"
+      operationId: "deleteReview"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 348 for testing. "
+        required: true
+      - name: "reviewId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 23 for testing. "
+        required: true
+      security:
+      - reviews_auth:
+        - "write:reviews"
+        - "read:reviews"
+      responses:
+        "400":
+          description: "Invalid review id value"
+      x-swagger-router-controller: "Reviews"
+  /landmarks/{landmarkId}/reviews/{reviewId}/numOfStars:
+    post:
+      tags:
+      - "Reviews"
+      summary: "Evaluate a review"
+      description: "FR10: Evaluate a review\n"
+      operationId: "evaluateReview"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 348 for testing. "
+        required: true
+      - name: "reviewId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 23 for testing. "
+        required: true
+      responses:
+        "200":
+          description: "review response"
+        default:
+          description: "unexpected error"
+      x-swagger-router-controller: "Reviews"
+  /landmarks/{landmarkId}/reviews/{reviewId}/comments:
+    get:
+      tags:
+      - "Landmarks"
+      summary: "Get comments for current landmark review"
+      description: "FR12: Reply to reviews and comments\n"
+      operationId: "getCommentsForReview"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 348 for testing. "
+        required: true
+      - name: "reviewId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 23 for testing. "
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid landmarkId supplied"
+        "404":
+          description: "Landmark not found"
+      x-swagger-router-controller: "Landmarks"
+    post:
+      tags:
+      - "Comments"
+      summary: "Create a comment"
+      description: "FR1: Add a review\n"
+      operationId: "addComment"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 348 for testing. "
+        required: true
+      - name: "reviewId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 23 for testing. "
+        required: true
+      responses:
+        "200":
+          description: "review response"
+        default:
+          description: "unexpected error"
+      x-swagger-router-controller: "Comments"
+  /landmarks/{landmarkId}/reviews/{reviewId}/comments/{commentId}:
+    get:
+      tags:
+      - "Landmarks"
+      summary: "Get comment by comment id"
+      description: ""
+      operationId: "getCommentById"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 348 for testing. "
+        required: true
+      - name: "reviewId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 23 for testing. "
+        required: true
+      - name: "commentId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 2 for testing. "
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid landmarkId supplied"
+        "404":
+          description: "Landmark not found"
+      x-swagger-router-controller: "Landmarks"
+    delete:
+      tags:
+      - "Comments"
+      summary: "Delete a comment"
+      operationId: "deleteComment"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 348 for testing. "
+        required: true
+      - name: "reviewId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 23 for testing. "
+        required: true
+      - name: "commentId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 2 for testing. "
+        required: true
+      security:
+      - comments_auth:
+        - "write:comments"
+        - "read:comments"
+      responses:
+        "400":
+          description: "Invalid comment id value"
+      x-swagger-router-controller: "Comments"
+  /landmarks/{landmarkId}/photos:
+    get:
+      tags:
+      - "Photos"
+      summary: "Get photos for the current landmark"
+      description: ""
+      operationId: "getPhotosForLandmark"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 348 for testing. "
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid photoId supplied"
+        "404":
+          description: "Photo not found"
+      x-swagger-router-controller: "Photos"
+    post:
+      tags:
+      - "Photos"
+      summary: "Add a photo"
+      description: "FR8: Add photos of landmark\n"
+      operationId: "addPhoto"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 348 for testing. "
+        required: true
+      responses:
+        "200":
+          description: "photo response"
+        default:
+          description: "unexpected error"
+      x-swagger-router-controller: "Photos"
+  /landmarks/{landmarkId}/photos/{photoId}:
+    delete:
+      tags:
+      - "Photos"
+      summary: "Delete a photo added by the user"
+      description: "FR9: Remove photos of landmark\n"
+      operationId: "deletePhoto"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 348 for testing. "
+        required: true
+      - name: "photoId"
+        in: "path"
+        description: "The id that needs to be fetched. Use 8 for testing. "
+        required: true
+      security:
+      - photos_auth:
+        - "write:photos"
+        - "read:photos"
+      responses:
+        "400":
+          description: "Invalid photo id value"
+      x-swagger-router-controller: "Photos"
+  /experiences:
+    post:
+      tags:
+      - "Experiences"
+      summary: "Create an experience"
+      description: "FR5: Create an Experience\n"
+      operationId: "createExperience"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "Experiences"
+  /experiences/{experienceId}:
+    get:
+      tags:
+      - "Experiences"
+      summary: "Get experience by experience id"
+      description: ""
+      operationId: "getExperienceById"
+      parameters:
+      - name: "experienceId"
+        in: "path"
+        description: "The name that needs to be fetched. Use 4 for testing. "
+        required: true
+      responses:
+        "200":
+          description: "successful operation"
+        "400":
+          description: "Invalid experienceId supplied"
+        "404":
+          description: "Experience not found"
+      x-swagger-router-controller: "Experiences"
+    delete:
+      tags:
+      - "Experiences"
+      summary: "Delete an experience"
+      description: "delete an experience"
+      operationId: "deleteExperience"
+      parameters:
+      - name: "experienceId"
+        in: "path"
+        description: "Experience id to delete"
+        required: true
+      security:
+      - experiences_auth:
+        - "write:experiences"
+        - "read:experiences"
+      responses:
+        "400":
+          description: "Invalid experience id value"
+      x-swagger-router-controller: "Experiences"
+  /experiences/{experienceId}/{landmarkId}:
+    put:
+      tags:
+      - "Experiences"
+      summary: "Update experience"
+      description: "This can only be done by the logged in user."
+      operationId: "updateExperience"
+      parameters:
+      - name: "landmarkId"
+        in: "path"
+        description: "landmark id that needs to be added"
+        required: true
+      - name: "experienceId"
+        in: "path"
+        description: "experience id"
+        required: true
+      responses:
+        default:
+          description: "successful operation"
+      x-swagger-router-controller: "Experiences"
+  /interactive_map:
+    get:
+      tags:
+      - "Interactive_map"
+      summary: "See/Interact interactive map"
+      description: "This can only be done by the logged-in user."
+      operationId: "interactive_map"
+      parameters: []
+      responses:
+        "200":
+          description: "Successful operation"
+      x-swagger-router-controller: "InteractiveMap"
+definitions: {}
