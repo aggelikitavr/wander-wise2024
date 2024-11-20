@@ -5,11 +5,56 @@
  * Create user
  * This can only be done by the logged in user.
  *
- * no response value expected for this operation
+ * body User Created user object (optional)
+ * returns User
  **/
-exports.createUser = function() {
+exports.createUser = function(body) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    var examples = {};
+    examples['application/json'] = {
+  "firstName" : "John",
+  "lastName" : "James",
+  "password" : "12345",
+  "userStatus" : 1,
+  "phone" : "12345",
+  "id" : 10,
+  "email" : "john@email.com",
+  "username" : "theUser"
+};
+    if (Object.keys(examples).length > 0) {
+      resolve(examples[Object.keys(examples)[0]]);
+    } else {
+      resolve();
+    }
+  });
+}
+
+
+/**
+ * Create user
+ * This can only be done by the logged in user.
+ *
+ * body User Created user object (optional)
+ * returns User
+ **/
+exports.createUser = function(body) {
+  return new Promise(function(resolve, reject) {
+    var examples = {};
+    examples['application/json'] = {
+  "firstName" : "John",
+  "lastName" : "James",
+  "password" : "12345",
+  "userStatus" : 1,
+  "phone" : "12345",
+  "id" : 10,
+  "email" : "john@email.com",
+  "username" : "theUser"
+};
+    if (Object.keys(examples).length > 0) {
+      resolve(examples[Object.keys(examples)[0]]);
+    } else {
+      resolve();
+    }
   });
 }
 
@@ -18,11 +63,27 @@ exports.createUser = function() {
  * Creates list of users with given input array
  * Creates list of users with given input array
  *
- * no response value expected for this operation
+ * body List  (optional)
+ * returns User
  **/
-exports.createUsersWithListInput = function() {
+exports.createUsersWithListInput = function(body) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    var examples = {};
+    examples['application/json'] = {
+  "firstName" : "John",
+  "lastName" : "James",
+  "password" : "12345",
+  "userStatus" : 1,
+  "phone" : "12345",
+  "id" : 10,
+  "email" : "john@email.com",
+  "username" : "theUser"
+};
+    if (Object.keys(examples).length > 0) {
+      resolve(examples[Object.keys(examples)[0]]);
+    } else {
+      resolve();
+    }
   });
 }
 
@@ -31,7 +92,7 @@ exports.createUsersWithListInput = function() {
  * Delete user
  * This can only be done by the logged in user.
  *
- * username Object The name that needs to be deleted
+ * username String The name that needs to be deleted
  * no response value expected for this operation
  **/
 exports.deleteUser = function(username) {
@@ -43,36 +104,54 @@ exports.deleteUser = function(username) {
 
 /**
  * Get user by user name
- * 
  *
- * username Object The name that needs to be fetched. Use user1 for testing. 
- * no response value expected for this operation
+ * username String The name that needs to be fetched. Use user1 for testing. 
+ * returns User
  **/
 exports.getUserByName = function(username) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    var examples = {};
+    examples['application/json'] = {
+  "firstName" : "John",
+  "lastName" : "James",
+  "password" : "12345",
+  "userStatus" : 1,
+  "phone" : "12345",
+  "id" : 10,
+  "email" : "john@email.com",
+  "username" : "theUser"
+};
+    if (Object.keys(examples).length > 0) {
+      resolve(examples[Object.keys(examples)[0]]);
+    } else {
+      resolve();
+    }
   });
 }
 
 
 /**
  * Logs user into the system
- * 
  *
- * username Object The user name for login (optional)
- * password Object The password for login in clear text (optional)
- * no response value expected for this operation
+ * username String The user name for login (optional)
+ * password String The password for login in clear text (optional)
+ * returns String
  **/
 exports.loginUser = function(username,password) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    var examples = {};
+    examples['application/json'] = "";
+    if (Object.keys(examples).length > 0) {
+      resolve(examples[Object.keys(examples)[0]]);
+    } else {
+      resolve();
+    }
   });
 }
 
 
 /**
  * Logs out current logged in user session
- * 
  *
  * no response value expected for this operation
  **/
@@ -87,10 +166,26 @@ exports.logoutUser = function() {
  * Update user
  * This can only be done by the logged in user.
  *
- * username Object name that need to be deleted
+ * body User Update an existent user in the store (optional)
+ * username String name that need to be deleted
  * no response value expected for this operation
  **/
-exports.updateUser = function(username) {
+exports.updateUser = function(body,username) {
+  return new Promise(function(resolve, reject) {
+    resolve();
+  });
+}
+
+
+/**
+ * Update user
+ * This can only be done by the logged in user.
+ *
+ * body User Update an existent user in the store (optional)
+ * username String name that need to be deleted
+ * no response value expected for this operation
+ **/
+exports.updateUser = function(body,username) {
   return new Promise(function(resolve, reject) {
     resolve();
   });

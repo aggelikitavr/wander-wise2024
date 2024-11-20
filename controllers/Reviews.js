@@ -3,9 +3,8 @@
 var utils = require('../utils/writer.js');
 var Reviews = require('../service/ReviewsService');
 
-module.exports.addReview = function addReview (req, res, next) {
-  var landmarkId = req.swagger.params['landmarkId'].value;
-  Reviews.addReview(landmarkId)
+module.exports.addReview = function addReview (req, res, next, body, landmarkId) {
+  Reviews.addReview(body, landmarkId)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -14,10 +13,8 @@ module.exports.addReview = function addReview (req, res, next) {
     });
 };
 
-module.exports.deleteReview = function deleteReview (req, res, next) {
-  var landmarkId = req.swagger.params['landmarkId'].value;
-  var reviewId = req.swagger.params['reviewId'].value;
-  Reviews.deleteReview(landmarkId,reviewId)
+module.exports.deleteReview = function deleteReview (req, res, next, landmarkId, reviewId) {
+  Reviews.deleteReview(landmarkId, reviewId)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -26,10 +23,8 @@ module.exports.deleteReview = function deleteReview (req, res, next) {
     });
 };
 
-module.exports.evaluateReview = function evaluateReview (req, res, next) {
-  var landmarkId = req.swagger.params['landmarkId'].value;
-  var reviewId = req.swagger.params['reviewId'].value;
-  Reviews.evaluateReview(landmarkId,reviewId)
+module.exports.evaluateReview = function evaluateReview (req, res, next, body, landmarkId, reviewId) {
+  Reviews.evaluateReview(body, landmarkId, reviewId)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -38,10 +33,8 @@ module.exports.evaluateReview = function evaluateReview (req, res, next) {
     });
 };
 
-module.exports.getReviesById = function getReviesById (req, res, next) {
-  var landmarkId = req.swagger.params['landmarkId'].value;
-  var reviewId = req.swagger.params['reviewId'].value;
-  Reviews.getReviesById(landmarkId,reviewId)
+module.exports.getReviesById = function getReviesById (req, res, next, landmarkId, reviewId) {
+  Reviews.getReviesById(landmarkId, reviewId)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -50,8 +43,7 @@ module.exports.getReviesById = function getReviesById (req, res, next) {
     });
 };
 
-module.exports.getReviewsForLandmark = function getReviewsForLandmark (req, res, next) {
-  var landmarkId = req.swagger.params['landmarkId'].value;
+module.exports.getReviewsForLandmark = function getReviewsForLandmark (req, res, next, landmarkId) {
   Reviews.getReviewsForLandmark(landmarkId)
     .then(function (response) {
       utils.writeJson(res, response);
