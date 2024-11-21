@@ -3,9 +3,8 @@
 var utils = require('../utils/writer.js');
 var Photos = require('../service/PhotosService');
 
-module.exports.addPhoto = function addPhoto (req, res, next) {
-  var landmarkId = req.swagger.params['landmarkId'].value;
-  Photos.addPhoto(landmarkId)
+module.exports.addPhoto = function addPhoto (req, res, next, body, landmarkId) {
+  Photos.addPhoto(body, landmarkId)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -14,10 +13,8 @@ module.exports.addPhoto = function addPhoto (req, res, next) {
     });
 };
 
-module.exports.deletePhoto = function deletePhoto (req, res, next) {
-  var landmarkId = req.swagger.params['landmarkId'].value;
-  var photoId = req.swagger.params['photoId'].value;
-  Photos.deletePhoto(landmarkId,photoId)
+module.exports.deletePhoto = function deletePhoto (req, res, next, landmarkId, photoId) {
+  Photos.deletePhoto(landmarkId, photoId)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -26,8 +23,7 @@ module.exports.deletePhoto = function deletePhoto (req, res, next) {
     });
 };
 
-module.exports.getPhotosForLandmark = function getPhotosForLandmark (req, res, next) {
-  var landmarkId = req.swagger.params['landmarkId'].value;
+module.exports.getPhotosForLandmark = function getPhotosForLandmark (req, res, next, landmarkId) {
   Photos.getPhotosForLandmark(landmarkId)
     .then(function (response) {
       utils.writeJson(res, response);

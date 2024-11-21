@@ -3,8 +3,8 @@
 var utils = require('../utils/writer.js');
 var Experiences = require('../service/ExperiencesService');
 
-module.exports.createExperience = function createExperience (req, res, next) {
-  Experiences.createExperience()
+module.exports.createExperience = function createExperience (req, res, next, body) {
+  Experiences.createExperience(body)
     .then(function (response) {
       utils.writeJson(res, response);
     })
@@ -13,8 +13,17 @@ module.exports.createExperience = function createExperience (req, res, next) {
     });
 };
 
-module.exports.deleteExperience = function deleteExperience (req, res, next) {
-  var experienceId = req.swagger.params['experienceId'].value;
+module.exports.createExperience = function createExperience (req, res, next, body) {
+  Experiences.createExperience(body)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.deleteExperience = function deleteExperience (req, res, next, experienceId) {
   Experiences.deleteExperience(experienceId)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -24,8 +33,7 @@ module.exports.deleteExperience = function deleteExperience (req, res, next) {
     });
 };
 
-module.exports.getExperienceById = function getExperienceById (req, res, next) {
-  var experienceId = req.swagger.params['experienceId'].value;
+module.exports.getExperienceById = function getExperienceById (req, res, next, experienceId) {
   Experiences.getExperienceById(experienceId)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -35,10 +43,18 @@ module.exports.getExperienceById = function getExperienceById (req, res, next) {
     });
 };
 
-module.exports.updateExperience = function updateExperience (req, res, next) {
-  var landmarkId = req.swagger.params['landmarkId'].value;
-  var experienceId = req.swagger.params['experienceId'].value;
-  Experiences.updateExperience(landmarkId,experienceId)
+module.exports.updateExperience = function updateExperience (req, res, next, body, landmarkId, experienceId) {
+  Experiences.updateExperience(body, landmarkId, experienceId)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.updateExperience = function updateExperience (req, res, next, body, landmarkId, experienceId) {
+  Experiences.updateExperience(body, landmarkId, experienceId)
     .then(function (response) {
       utils.writeJson(res, response);
     })
