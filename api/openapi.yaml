@@ -11,7 +11,7 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.11
 servers:
-- url: https://wanderwise.swagger.io/api/v1
+- url: 'http://localhost:8080'
 tags:
 - name: User
   description: Operations about User
@@ -337,20 +337,33 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
+          example: 348
       responses:
         "200":
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Landmark'
+                $ref: '#/components/schemas/ReviewsArray'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Landmark'
+                $ref: '#/components/schemas/ReviewsArray'
         "400":
           description: Invalid landmarkId supplied
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid input
+                  message:
+                    type: string
+                    example: landmarkId is not valid. Please try a positive integer.
         "404":
-          description: Landmark not found
+          description: Reviews not found
       x-swagger-router-controller: Reviews
     post:
       tags:
@@ -369,6 +382,7 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
       requestBody:
         description: Review
         content:
@@ -393,7 +407,7 @@ paths:
       summary: Get review by review id
       description: |
         FR3: View a review
-      operationId: getReviesById
+      operationId: getReviewsById
       parameters:
       - name: landmarkId
         in: path
@@ -404,6 +418,8 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
+          example: 348
       - name: reviewId
         in: path
         description: 'The id that needs to be fetched. Use 23 for testing. '
@@ -413,20 +429,33 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
+          example: 23
       responses:
         "200":
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Landmark'
+                $ref: '#/components/schemas/Review'
             application/xml:
               schema:
-                $ref: '#/components/schemas/Landmark'
+                $ref: '#/components/schemas/Review'
         "400":
-          description: Invalid landmarkId supplied
+          description: Invalid reviewId supplied
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Invalid input
+                  message:
+                    type: string
+                    example: landmarkId is not valid. Please try a positive integer.
         "404":
-          description: Landmark not found
+          description: Review not found
       x-swagger-router-controller: Reviews
     delete:
       tags:
@@ -445,6 +474,8 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
+          example: 348
       - name: reviewId
         in: path
         description: 'The id that needs to be fetched. Use 23 for testing. '
@@ -454,7 +485,11 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
+          example: 23
       responses:
+        "200":
+          description: successful operation
         "400":
           description: Invalid review id value
       security:
@@ -480,6 +515,8 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
+          example: 348
       - name: reviewId
         in: path
         description: 'The id that needs to be fetched. Use 23 for testing. '
@@ -489,6 +526,8 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
+          example: 23
       requestBody:
         description: Review
         content:
@@ -524,6 +563,8 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
+          example: 348
       - name: reviewId
         in: path
         description: 'The id that needs to be fetched. Use 23 for testing. '
@@ -533,6 +574,8 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
+          example: 23
       responses:
         "200":
           description: successful operation
@@ -565,6 +608,8 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
+          example: 348
       - name: reviewId
         in: path
         description: 'The id that needs to be fetched. Use 23 for testing. '
@@ -574,6 +619,8 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
+          example: 23
       requestBody:
         description: Review
         content:
@@ -608,6 +655,8 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
+          example: 348
       - name: reviewId
         in: path
         description: 'The id that needs to be fetched. Use 23 for testing. '
@@ -617,6 +666,8 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
+          example: 23
       - name: commentId
         in: path
         description: 'The id that needs to be fetched. Use 2 for testing. '
@@ -626,6 +677,8 @@ paths:
         schema:
           type: integer
           format: int64
+          minimum: 1
+          example: 2
       responses:
         "200":
           description: successful operation
@@ -1176,7 +1229,6 @@ components:
         name: Top view of the Tower.
         id: 16422
     Landmark_reviews:
-      type: object
       properties:
         review_id:
           type: integer
@@ -1219,6 +1271,33 @@ components:
         date:
           type: string
           example: 9th of July 2024
+    ReviewsArray:
+      description: List of review object
+      type: array
+      items:
+        $ref: '#/components/schemas/Review'
+      example:
+        - review_id: 2
+          review_text: "This landmark worths visiting..."
+          numOfStars: 2
+          comments: 
+            - "The view was amazing."
+            - "Would recommend it to others."
+          date: "15th of November 2023"
+        - review_id: 3
+          review_text: "An unforgettable experience!"
+          numOfStars: 5
+          comments: 
+            - "The atmosphere was incredible."
+            - "A must-visit landmark."
+          date: "20th of November 2023"
+        - review_id: 4
+          review_text: "Not as expected, a bit underwhelming."
+          numOfStars: 3
+          comments: 
+            - "Could have been better organized."
+            - "Was not as advertised."
+          date: "10th of November 2023"
   requestBodies:
     UserArray:
       description: List of user object
@@ -1228,6 +1307,14 @@ components:
             type: array
             items:
               $ref: '#/components/schemas/User'
+    ReviewsArray:
+      description: List of review object
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Review'
   securitySchemes:
     landmarks_auth:
       type: oauth2
