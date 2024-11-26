@@ -11,7 +11,14 @@
  **/
 exports.addReview = function(body,landmarkId) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    const newReview = {
+      review_id: body.review_id,
+      review_text: body.review_text,
+      date: body.date,
+      numOfStars: body.numOfStars || 0,
+      comments: body.comments || []
+    };
+    resolve(newReview);
   });
 }
 
@@ -60,9 +67,16 @@ exports.getReviewsById = function(landmarkId,reviewId) {
     var examples = {};
     examples['application/json'] = {
   "date" : "15th of November 2023",
-  "review_id" : 2,
+  "review_id" : 23,
   "numOfStars" : 2,
-  "comments" : "I agree with this review...",
+  "comments" : [
+    {
+      "id": 3,
+      "text": "I love the view from up there!",
+      "author": "WiseWanderer",
+      "date": "9th of July 2024",
+    }
+    ],
   "review_text" : "This landmark worths visiting..."
 };
     if (Object.keys(examples).length > 0) {
@@ -89,21 +103,54 @@ exports.getReviewsForLandmark = function(landmarkId) {
         "review_id": 2,
         "review_text": "This landmark worths visiting...",
         "numOfStars": 2,
-        "comments": ["I agree with this review..."],
+        "comments": [
+          {
+            "id": 1,
+            "text": "I agree with this review...",
+            "author": "HappyVisitor",
+            "date": "16th of November 2023"
+          }
+        ],
         "date": "15th of November 2023"
       },
       {
         "review_id": 3,
         "review_text": "An unforgettable experience!",
         "numOfStars": 5,
-        "comments": ["The atmosphere was incredible.", "A must-visit landmark."],
+        "comments": [
+          {
+            "id": 2,
+            "text": "The atmosphere was incredible.",
+            "author": "WiseWanderer",
+            "date": "22th of November 2023"
+          },
+          {
+            "id": 3,
+            "text": "A must-visit landmark.",
+            "author": "WorldExplorer",
+            "date": "22th of November 2023"
+          }
+        ],
         "date": "20th of November 2023"
       },
       {
         "review_id": 4,
         "review_text": "Not as expected, a bit underwhelming.",
         "numOfStars": 3,
-        "comments": ["Could have been better organized.", "Was not as advertised."],
+        "comments": [
+          {
+            "id": 4,
+            "text": "Could have been better organized.",
+            "author": "LandmarkLover",
+            "date": "14th of November 2023"
+          },
+          {
+            "id": 5,
+            "text": "Was not as advertised.",
+            "author": "WiseWanderer",
+            "date": "17th of November 2023"
+          }
+        ],
         "date": "10th of November 2023"
       }
     ];

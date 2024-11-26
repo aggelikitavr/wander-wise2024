@@ -6,7 +6,7 @@ var Reviews = require('../service/ReviewsService');
 module.exports.addReview = function addReview (req, res, next, body, landmarkId) {
   Reviews.addReview(body, landmarkId)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response,201);
     })
     .catch(function (response) {
       utils.writeJson(res, response);
