@@ -29,11 +29,14 @@ exports.addReview = function(body,landmarkId) {
  *
  * landmarkId Long The id that needs to be fetched. Use 348 for testing. 
  * reviewId Long The id that needs to be fetched. Use 23 for testing. 
- * no response value expected for this operation
+ * Response value expected for successful operation
  **/
 exports.deleteReview = function(landmarkId,reviewId) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    const successfulDeletion = {
+      message: "The review has been successfully deleted.",
+    };
+    resolve(successfulDeletion);
   });
 }
 

@@ -489,9 +489,17 @@ paths:
           example: 23
       responses:
         "200":
-          description: successful operation
+          description: Successful Operation - Successful Deletion
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: The review has been successfully deleted.
         "400":
-          description: Invalid review id value
+          description: Unsuccessful Operation
       security:
       - reviews_auth:
         - write:reviews
