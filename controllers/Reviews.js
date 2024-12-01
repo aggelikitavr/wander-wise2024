@@ -6,7 +6,7 @@ var Reviews = require('../service/ReviewsService');
 module.exports.addReview = function addReview (req, res, next, body, landmarkId) {
   Reviews.addReview(body, landmarkId)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response,201);
     })
     .catch(function (response) {
       utils.writeJson(res, response);
@@ -33,8 +33,8 @@ module.exports.evaluateReview = function evaluateReview (req, res, next, body, l
     });
 };
 
-module.exports.getReviesById = function getReviesById (req, res, next, landmarkId, reviewId) {
-  Reviews.getReviesById(landmarkId, reviewId)
+module.exports.getReviewsById = function getReviewsById (req, res, next, landmarkId, reviewId) {
+  Reviews.getReviewsById(landmarkId, reviewId)
     .then(function (response) {
       utils.writeJson(res, response);
     })
