@@ -442,7 +442,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Review'
         "400":
-          description: Invalid reviewId supplied
+          description: Invalid landmarkId or reviewId supplied
           content:
             application/json:
               schema:
@@ -453,7 +453,7 @@ paths:
                     example: Invalid input
                   message:
                     type: string
-                    example: landmarkId is not valid. Please try a positive integer.
+                    example: landmarkId or reviewId is not valid. Please try a positive integer.
         "404":
           description: Review not found
       x-swagger-router-controller: Reviews
