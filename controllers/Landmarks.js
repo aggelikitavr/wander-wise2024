@@ -13,16 +13,6 @@ module.exports.createLandmark = function createLandmark (req, res, next, body) {
     });
 };
 
-module.exports.createLandmark = function createLandmark (req, res, next, body) {
-  Landmarks.createLandmark(body)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
 module.exports.deleteLandmark = function deleteLandmark (req, res, next, landmarkId) {
   Landmarks.deleteLandmark(landmarkId)
     .then(function (response) {
