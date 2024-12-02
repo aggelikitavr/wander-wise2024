@@ -1,7 +1,5 @@
-const http = require('http');
 const test = require('ava');
-const got = require('got');
-const app = require('../../index.js');
+const { setup, teardown } = require('../helpers/setup.js');
 
 
 test.before(setup);
