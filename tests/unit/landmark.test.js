@@ -1,7 +1,7 @@
 const http = require('http');
 const test = require('ava');
 const got = require('got');
-const app = require('../index.js');
+const app = require('../../index.js');
 
 
 test.before(async (t) => {
