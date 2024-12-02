@@ -76,11 +76,14 @@ exports.createLandmark = function(body) {
       "location": body.location,
     }
 
-    if (Object.keys(newLandmark).length == 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve(body);
-    }
+    resolve(newLandmark);
+    // resolve(body);
+
+    // if (Object.keys(newLandmark).length == 0) {
+    //   resolve(examples[Object.keys(examples)[0]]);
+    // } else {
+    //   resolve(body);
+    // }
   });
 }
 
