@@ -48,30 +48,38 @@ exports.createLandmark = function(body) {
  **/
 exports.createLandmark = function(body) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "reviews" : {
-    "date" : "15th of November 2023",
-    "review_id" : 2,
-    "numOfStars" : 2,
-    "comments" : "I agree with this review...",
-    "review_text" : "This landmark worths visiting..."
-  },
-  "name" : "The White Tower",
-  "details" : "Located near the city center, the White Tower is...",
-  "location" : [ "40.753°N", "40.753°N" ],
-  "id" : 124,
-  "photos" : {
-    "date" : "10th of August 2017",
-    "image" : [ 255, 255 ],
-    "name" : "Top view of the Tower.",
-    "id" : 16422
-  }
-};
-    if (Object.keys(examples).length > 0) {
+    // var examples = {};
+    // examples['application/json'] = {
+    //   "reviews" : {
+    //     "date" : "15th of November 2023",
+    //     "review_id" : 2,
+    //     "numOfStars" : 2,
+    //     "comments" : "I agree with this review...",
+    //     "review_text" : "This landmark worths visiting..."
+    //   },
+    //   "name" : "The White Tower",
+    //   "details" : "Located near the city center, the White Tower is...",
+    //   "location" : [ "40.753°N", "40.753°N" ],
+    //   "id" : 124,
+    //   "photos" : {
+    //     "date" : "10th of August 2017",
+    //     "image" : [ 255, 255 ],
+    //     "name" : "Top view of the Tower.",
+    //     "id" : 16422
+    //   }
+    // };
+
+    var newLandmark = {
+      "id": body.id,
+      "name": body.name,
+      "details": body.details,
+      "location": body.location,
+    }
+
+    if (Object.keys(newLandmark).length == 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
-      resolve();
+      resolve(body);
     }
   });
 }
