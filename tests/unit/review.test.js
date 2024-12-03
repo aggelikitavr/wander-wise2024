@@ -12,7 +12,7 @@ test("Unit test: GET /landmarks/{landmarkId}/reviews returns the correct respons
         const landmarkId=348; // A valid landmarkId according to Swagger UI
         
         const { body, statusCode } = await t.context.got(`landmarks/${landmarkId}/reviews`, {method: `GET`});
-        //console.log(body);
+        
         // test for correct body response and statusCode while happy path
         t.true(Array.isArray(body), 'The response body should be an Array');
         t.is(body.length, 3, 'The response body should include three elements for lanmarkId=348');
@@ -72,7 +72,6 @@ test("Unit test: GET /landmarks/{landmarkId}/reviews returns 400 for invalid lan
             throwHttpErrors: false,
         },
         );
-        //console.log(body)
     
         t.is(statusCode, 400, 'The response status code should be 400 for invalid landmarkId');
         t.true(body && typeof(body) === 'object' && !Array.isArray(body), 'The response body should be an object');
@@ -96,7 +95,6 @@ test("Unit test: GET /landmarks/{landmarkId}/reviews/{reviewId} returns the corr
         const reviewId=23; // A valid reviewId according to Swagger UI
 
         const { body, statusCode } = await t.context.got(`landmarks/${landmarkId}/reviews/${reviewId}`, {method: `GET`});
-        //console.log(body);
 
         // Check if the response (body & status code) has the expected domain.
         t.is(statusCode, 200, 'The response status code should be 200 for valid landmarkId and reviewId and successful GET operation');
@@ -301,7 +299,6 @@ test("Unit test: POST /landmarks/{landmarkId}/reviews returns 201 for successful
         json:reqBody
     });
 
-    //console.log(body);
     t.is(statusCode, 201, 'The response status code should be 201 for valid landmarkId and successful creation of the review');
     t.truthy(body && typeof(body)==='object' && !Array.isArray(body), 'The response body should exist and be an object');
     
@@ -445,7 +442,6 @@ test("Unit test: POST /landmarks/{landmarkId}/reviews returns 400 for providing 
         json:reqBody, throwHttpErrors: false
     });
     
-    //console.log(body)
     // Check the status code and the response body for unsuccessful creation of a review.
     t.is(statusCode, 400, 'The response status code should be 400 for invalid review data and unsuccessful creation of a review');
     t.truthy(body && typeof(body)==='object' && !Array.isArray(body), 'The response body should exist and be an object');
