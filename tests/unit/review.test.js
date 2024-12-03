@@ -247,3 +247,225 @@ test("Unit test: GET /landmarks/{landmarkId}/reviews/{reviewId} returns 400 for 
         t.true(body.errors[1].message.includes('should be integer'));
 
 });
+
+test("Unit test: POST /landmarks/{landmarkId}/reviews returns 201 for successful creation of a review for a landmark -- The request body contains both required and not required properties",
+    async (t) => {
+        const landmarkId=348; // A valid landmarkId
+
+        // Declare the request body which contains the data of the new review that will be created.
+        // Declare valid data for this test
+        const reqBody = {
+            review_id: 2,
+            review_text: "This landmark worths visiting...",
+            date: "15th of November 2023",
+            numOfStars: 0,
+            comments: []
+        };
+
+        const { body, statusCode} = await t.context.got(`landmarks/${landmarkId}/reviews`, {method: `POST`,
+        json:reqBody
+    });
+
+    t.is(statusCode, 201, 'The response status code should be 201 for valid landmarkId and successful creation of the review');
+    t.truthy(body && typeof(body)==='object' && !Array.isArray(body), 'The response body should exist and be an object');
+    
+    // Check if the response body contains the same data as the request body
+    t.truthy(body.review_id, 'The response body should contain a "review_id" property');
+    t.truthy(body.review_text, 'The response body should contain a "review_text" property');
+    t.truthy(body.date, 'The respponse body should contain a "date" property');
+    t.true(body.hasOwnProperty('numOfStars'), 'The response body should contain a "numOfStars" property');
+    t.is(body.numOfStars, 0, 'The numOfStars is equal to 0 by default for a review just created');
+    t.truthy(body.comments, 'The repsonse body should contain a "comments" property');
+    t.true(Array.isArray(body.comments)===true, 'The "comments" property should be an array');
+    t.deepEqual(body.comments, [], 'There are not comments for a review that is just created for a Landmark');
+
+    t.deepEqual(reqBody, body, 'The request body and response body should be equal');
+    
+});
+
+test("Unit test: POST /landmarks/{landmarkId}/reviews returns 201 for successful creation of a review for a landmark -- The request body contains only the required properties",
+    async (t) => {
+        const landmarkId=348; // A valid landmarkId
+
+        // Declare the request body which contains the data of the new review that will be created.
+        // Declare valid data for this test.
+        // In this test define the request body without declaring the properties "numOfStars" and "comments",
+        // which are not required
+        const reqBody = {
+            review_id: 8,
+            review_text: "I love visiting this place!",
+            date: "17th of November 2023",
+        };
+
+        const { body, statusCode} = await t.context.got(`landmarks/${landmarkId}/reviews`, {method: `POST`,
+        json:reqBody
+    });
+
+    //console.log(body);
+    t.is(statusCode, 201, 'The response status code should be 201 for valid landmarkId and successful creation of the review');
+    t.truthy(body && typeof(body)==='object' && !Array.isArray(body), 'The response body should exist and be an object');
+    
+    // Check if the response body contains the same data as the request body
+    t.truthy(body.review_id, 'The response body should contain a "review_id" property');
+    t.truthy(body.review_text, 'The response body should contain a "review_text" property');
+    t.truthy(body.date, 'The respponse body should contain a "date" property');
+    
+    // Nevertheless the request body does not contain the properties "numOfStars" and "comments", the response
+    // body should contain these properties initializing them to default values.
+    t.true(body.hasOwnProperty('numOfStars'), 'The response body should contain a "numOfStars" property');
+    t.is(body.numOfStars, 0, 'The numOfStars is equal to 0 by default for a review just created');
+    t.truthy(body.comments, 'The repsonse body should contain a "comments" property');
+    t.true(Array.isArray(body.comments)===true, 'The "comments" property should be an array');
+    t.deepEqual(body.comments, [], 'There are no comments for a review that is just created for a Landmark');
+
+    // In this case, the request body is different from the response body.
+    t.notDeepEqual(reqBody, body, 'The request body and response body should NOT be equal in this case');
+    
+});
+
+test("Unit test: POST /landmarks/{landmarkId}/reviews returns 400 for providing invalid review data as request body. Unsuccessful review creation for a landmark",
+    async (t) => {
+        const landmarkId=348; // A valid landmarkId
+
+        // Declare the request body which contains the data of the new review that will be created.
+        // Declare invalid review data.
+        // In this test, some of the required parameters of the request body are omitted.
+        const reqBody = {
+            review_text: "This landmark worths visiting...",
+            numOfStars: 0,
+            comments: []
+        };
+
+        const { body, statusCode} = await t.context.got(`landmarks/${landmarkId}/reviews`, {method: `POST`,
+        json:reqBody, throwHttpErrors: false
+    });
+
+    // Check the status code and the response body for unsuccessful creation of a review.
+    t.is(statusCode, 400, 'The response status code should be 400 for invalid review data and unsuccessful creation of a review');
+    t.truthy(body && typeof(body)==='object' && !Array.isArray(body), 'The response body should exist and be an object');
+    t.truthy(body.message, 'The response body should contain a "message" property');
+    t.true(body.message.includes("request.body should have required property 'review_id'"), "The message of the response body should contain the string: request.body should have required property 'review_id'");
+    t.true(body.message.includes("request.body should have required property 'date"), "The message of the response body should contain the string: request.body should have required property 'date'")
+});
+
+test("Unit test: POST /landmarks/{landmarkId}/reviews returns 400 for providing invalid review data as request body. More data and properties in request body than needed -> Unsuccessful review creation for a landmark",
+    async (t) => {
+        const landmarkId=348; // A valid landmarkId
+
+        // Declare the request body which contains the data of the new review that will be created.
+        // Declare invalid review data.
+        // In this test, some of the required parameters of the request body are omitted.
+        const reqBody = {
+            review_id: 2,
+            review_text: "This landmark worths visiting...",
+            date: "16th of November 2023",
+            numOfStars: 0,
+            comments: [],
+            // Additional properties in request body
+            author: "WiseWanderer",
+            linked_landmark_id: 348,
+        };
+
+        const { body, statusCode} = await t.context.got(`landmarks/${landmarkId}/reviews`, {method: `POST`,
+        json:reqBody, throwHttpErrors: false
+    });
+
+    // Check the status code and the response body for unsuccessful creation of a review.
+    t.is(statusCode, 400, 'The response status code should be 400 for invalid review data and unsuccessful creation of a review');
+    t.truthy(body && typeof(body)==='object' && !Array.isArray(body), 'The response body should exist and be an object');
+    t.truthy(body.message, 'The response body should contain a "message" property');
+    t.true(body.message.includes("request.body should NOT have additional properties"), "The message of the response body should contain the string: request.body should NOT have additional properties");
+    
+    //Check the errors given
+    t.truthy(body.errors, 'The response body should contain an "errors" property');
+    t.true(Array.isArray(body.errors), 'The errors in response body should be an array');
+    t.true(body.errors.length===2, 'The errors array in response body should have length 2');
+    
+    // What does each error refer to?
+    t.true(body.errors[0].path.includes('body.author'), 'The first error should refer to the additional property author');
+    t.true(body.errors[0].message.includes('should NOT have additional properties'));
+    t.true(body.errors[1].path.includes('body.linked_landmark_id'), 'The second error should refer to the additional property linked_landmark_id');
+    t.true(body.errors[1].message.includes('should NOT have additional properties'));
+
+});
+
+test("Unit test: POST /landmarks/{landmarkId}/reviews returns 400 for providing invalid landmark -> Unsuccessful review creation for a landmark.",
+    async (t) => {
+        const landmarkId="invalid_landmarkId"; // An valid landmarkId
+
+        // Declare the request body which contains the data of the new review that will be created.
+        // Declare invalid review data.
+        // In this test, some of the required parameters of the request body are omitted.
+        const reqBody = {
+            review_id: 2,
+            review_text: "This landmark worths visiting...",
+            date: "16th of November 2023",
+            numOfStars: 0,
+            comments: [],
+        };
+
+        const { body, statusCode} = await t.context.got(`landmarks/${landmarkId}/reviews`, {method: `POST`,
+        json:reqBody, throwHttpErrors: false
+    });
+    
+    // Check the status code and the response body for unsuccessful creation of a review.
+    t.is(statusCode, 400, 'The response status code should be 400 for invalid review data and unsuccessful creation of a review');
+    t.truthy(body && typeof(body)==='object' && !Array.isArray(body), 'The response body should exist and be an object');
+    t.truthy(body.message, 'The response body should contain a "message" property');
+    t.true(body.message.includes('landmarkId should be integer'), 'The message of the response body should contain the string "landmarkId should be integer"');
+
+    //Check the errors given
+    t.truthy(body.errors, 'The response body should contain an "errors" property');
+    t.true(Array.isArray(body.errors), 'The errors in response body should be an array');
+    t.true(body.errors.length===1, 'The errors array in response body should have length 1');
+    t.true(body.errors[0].path.includes('params.landmarkId'), 'The first error should refer to the invalid landmarkId path parameter');
+    t.true(body.errors[0].message.includes('should be integer'));
+
+});
+
+test("Unit test: POST /landmarks/{landmarkId}/reviews returns 400 for providing invalid landmark and invalid review data as request body -> Unsuccessful review creation for a landmark.",
+    async (t) => {
+        const landmarkId=-10; // An valid landmarkId
+
+        // Declare the request body which contains the data of the new review that will be created.
+        // Declare invalid review data.
+        // In this test, some of the required parameters of the request body are omitted.
+        const reqBody = {
+            review_id: 2,
+            // The review_text is omitted
+            date: "16th of November 2023",
+            numOfStars: 0,
+            comments: [],
+            // Additional properties in request body
+            author: "WiseWanderer",
+            linked_landmark_id: -10,
+        };
+
+        const { body, statusCode} = await t.context.got(`landmarks/${landmarkId}/reviews`, {method: `POST`,
+        json:reqBody, throwHttpErrors: false
+    });
+    
+    //console.log(body)
+    // Check the status code and the response body for unsuccessful creation of a review.
+    t.is(statusCode, 400, 'The response status code should be 400 for invalid review data and unsuccessful creation of a review');
+    t.truthy(body && typeof(body)==='object' && !Array.isArray(body), 'The response body should exist and be an object');
+    t.truthy(body.message, 'The response body should contain a "message" property');
+    t.true(body.message.includes("request.body should NOT have additional properties"), "The message of the response body should contain the string: request.body should NOT have additional properties");
+    t.true(body.message.includes('landmarkId should be >= 1'), 'The message of the response body should contain the string "landmarkId should be >=1"');
+
+    //Check the errors given
+    t.truthy(body.errors, 'The response body should contain an "errors" property');
+    t.true(Array.isArray(body.errors), 'The errors in response body should be an array');
+    t.true(body.errors.length===4, 'The errors array in response body should have length 4');
+    
+    // What does each error refer to?
+    t.true(body.errors[0].path.includes('params.landmarkId'), 'The first error should refer to the invalid landmarkId path parameter');
+    t.true(body.errors[0].message.includes('should be >= 1'));
+    t.true(body.errors[1].path.includes('body.author'), 'The second error should refer to the additional property author');
+    t.true(body.errors[1].message.includes('should NOT have additional properties'));
+    t.true(body.errors[2].path.includes('body.linked_landmark_id'), 'The third error should refer to the additional property linked_landmark_id');
+    t.true(body.errors[2].message.includes('should NOT have additional properties'));
+    t.true(body.errors[3].path.includes('body.review_text'), 'The fourth error should refer to the missing property review_text');
+    t.true(body.errors[3].message.includes("should have required property 'review_text'"));
+
+});
