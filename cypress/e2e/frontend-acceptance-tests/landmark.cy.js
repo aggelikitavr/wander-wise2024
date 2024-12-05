@@ -11,6 +11,6 @@ context('Landmark', () => {
             cy.get('.body-param').type(char);
         });
         cy.get('.execute-wrapper').contains('Execute').click();
-        cy.get('.response-col_description__inner').invoke('text').then((op_text) => {expect(op_text).to.eq('successful operation');});
+        cy.get('.response-col_description__inner').invoke('text').then((op_text) => {expect(op_text).to.eq('Landmark Created!');});
     });
 });

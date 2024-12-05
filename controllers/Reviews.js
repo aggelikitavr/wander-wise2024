@@ -26,10 +26,10 @@ module.exports.deleteReview = function deleteReview (req, res, next, landmarkId,
 module.exports.evaluateReview = function evaluateReview (req, res, next, body, landmarkId, reviewId) {
   Reviews.evaluateReview(body, landmarkId, reviewId)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 201);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 400);
     });
 };
 
