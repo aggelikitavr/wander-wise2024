@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - wander-wise-main
+      - new-branch-theo
   pull_request:
     branches:
       - wander-wise-main
@@ -27,7 +28,7 @@ jobs:
         run: npm run test
 
       - name: Cypress run
-        uses: cypress-io/github-actions@v6
+        uses: cypress-io/github-action@v6
         with:
           start: npm start
           wait-on: 'http://localhost:8080/docs'
