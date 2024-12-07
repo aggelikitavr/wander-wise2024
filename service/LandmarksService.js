@@ -34,7 +34,6 @@ exports.createLandmark = function(body) {
 
     for (let key in body) {
       if (!(key in examples[Object.keys(examples)[0]])) {
-        console.log(key);
         reject(body);
         break;
       }
@@ -185,7 +184,7 @@ exports.getLandmarkById = function(landmarkId) {
     };
 
     if (landmarkId == examples[Object.keys(examples)[0]].id) {
-      resolve(examples);
+      resolve(examples[Object.keys(examples)[0]]);
     } else {
       reject();
     }

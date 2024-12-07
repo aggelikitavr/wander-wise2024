@@ -89,7 +89,7 @@ test('POST /landmarks with a wrong attribute name fails to create a new Landmark
     }
 });
 
-test('GET /landmarks/{landmarkId} retursn a new Landmark with id equal to landmarkId', async (t) => {
+test('GET /landmarks/{landmarkId} returns a Landmark with id equal to landmarkId', async (t) => {
     const { got } = t.context;
 
     const response = await got.get('landmarks/' + '4');
@@ -108,4 +108,17 @@ test('GET /landmarks/{landmarkId} retursn a new Landmark with id equal to landma
     t.is(response.body.reviews.numOfStars, 4);
     t.is(response.body.reviews.review_text, 'The view of the city is amazing from up there!');
     t.is(response.body.reviews.comments, 'Very helpful!');
+});
+
+test('GET /landmarks/{landmarkId} returns error 404 if landmarkId does not exist', async (t) => {
+    const { got } = t.context;
+
+    try {
+        await got.get('landmarks/5', {
+            responseType: 'json',
+        });
+        t.fail();
+    } catch (error) {
+        t.is(error.response.statusCode, 404);
+    }
 });
