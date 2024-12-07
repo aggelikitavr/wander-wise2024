@@ -60,7 +60,7 @@ Cypress.Commands.add('CSShelperFunctionForExampleResponses1', {prevSubject: true
 });
 
 
-describe('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews', () => {
+context('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews', () => {
     beforeEach(() => {
         cy.visit('http://localhost:8080/docs');
     });
@@ -196,7 +196,7 @@ describe('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews'
 
 })
 
-describe('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews/{reviewId}', () => {
+context('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews/{reviewId}', () => {
     beforeEach(() => {
         cy.visit('http://localhost:8080/docs');
     });
@@ -501,7 +501,7 @@ describe('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews/
     });
 })
 
-describe('Acceptance & Frontend Testing for POST /landmarks/{landmarkId}/reviews', () => {
+context('Acceptance & Frontend Testing for POST /landmarks/{landmarkId}/reviews', () => {
     beforeEach(() => {
         cy.visit('http://localhost:8080/docs');
     });
