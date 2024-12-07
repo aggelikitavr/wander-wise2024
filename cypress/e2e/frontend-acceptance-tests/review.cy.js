@@ -195,3 +195,573 @@ describe('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews'
     });
 
 })
+
+describe('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews/{reviewId}', () => {
+    beforeEach(() => {
+        cy.visit('http://localhost:8080/docs');
+    });
+    
+    it('Check that Swagger UI displays the endpoint', () => {
+        // In this test, confirm that the Swagger UI correclty displays the endpoint and the HTTP method
+        // as referred in API documentation.
+
+        // Confirm that the element exists and it is visible correclty.
+        cy.get('#operations-Reviews-getReviewsById')
+            .CSShelperFunction1('rgb(97, 175, 254)', 'rgba(97, 175, 254, 0.1)');
+
+        // Check if the name of "GET" HTTP Method is contained in the specific CSS selector which belongs to
+        // the above class selector with id=operations-Reviews-getReviewsById.
+        cy.get('#operations-Reviews-getReviewsById')
+            .find('div')
+            .find('span').eq(0)
+            .should('contain', 'GET');
+        
+        // Check if the path landmarks/{landmarkId}/review/{reviewId} is contained in the specific CSS selector
+        // which belongs to the above class selector with id=operations-Reviews-getReviewsById.
+        cy.get('#operations-Reviews-getReviewsById')
+            .find('div')
+            .find('span[data-path="/landmarks/{landmarkId}/reviews/{reviewId}"]')
+            .should('exist')
+            .parent()
+            .find('div')
+            .should('contain', 'Get review by review id');
+    });    
+
+    it('Execute the request : GET landmarks/{landmarkId}/reviews/{reviewId} properly to retrieve a specific review related to a specific landmark',
+        () => {
+            // In this test, confirm that the request is being executed correclty, while giving proper landmarkId and
+            // reviewId as path parameters.
+            
+            // Try the GET landmarks/{landmarkId}/reviews/{reviewId} out.
+            // Confirm that the fields where the path parameters "landmarkId" and "reviewId" really exists as
+            // well as the path parameters can actually be typed.
+            cy.get('#operations-Reviews-getReviewsById')
+                .scrollIntoView()
+                .click()
+            
+            // Check how the section, where the button "Try it out" exists, is displayed and click on the button
+            cy.get('#operations-Reviews-getReviewsById')
+                .children('div').eq(1)
+                .find('.opblock-section-header').eq(0)
+                .find('.tab-header > div > h4 > span')
+                .should('contain', 'Parameters');
+
+            cy.get('#operations-Reviews-getReviewsById')
+                .children('div').eq(1)
+                .find('.opblock-section-header').eq(0)
+                .find('.try-out > button')
+                .should('exist')
+                .should('contain', 'Try it out')
+                .click();
+
+            // Now, check if the necessary fields, where the values of path parameters "landmarkId" and "reviewId"
+            // are going to be typed, really exist. Then type 348 as valid landmarkId and 23 as valid reviewId to
+            // get response.
+            cy.get('#operations-Reviews-getReviewsById')
+                .find('.parameters-container > div')
+                .find('.parameters > tbody')
+                .find('tr[data-param-name="landmarkId"]') // Find the field where landmarkId should be typed
+                .find('input').clear()
+                .type('348')
+                // The field, where landmarkId is typed, is two "levels" inside, so three parent() are needed to
+                // go back to <tbody> CSS selector
+                .parent().parent().parent()
+                .find('tr[data-param-name="reviewId"]') // Find the field where reviewId should be typed
+                .find('input').clear()
+                .type('23');
+
+            cy.get('#operations-Reviews-getReviewsById')
+                .find('.execute-wrapper > button').contains('Execute')
+                .click();
+
+            // Check if the response is displayed correclty for valid landmarkId and reviewId.
+            cy.get('#operations-Reviews-getReviewsById')
+                .CSShelperFunctionForResponse('200');
+    });
+
+    it('Execute a BAD REQUEST (1st case): GET landmarks/{landmarkId}/reviews/{reviewId} giving WRONG value to the path parameter "landmarkId"',
+        () => {
+            // In this test, confirm that no response is displayed when the request is not executed properly,
+            // giving an invalid landmarkId as path parameter, while the given reviewId is valid.
+            
+            // Try the GET landmarks/{landmarkId}/reviews/{reviewId} out.
+            // Confirm that the fields where the path parameters "landmarkId" and "reviewId" really exist and the
+            // path parameters can actually be typed.
+            cy.get('#operations-Reviews-getReviewsById')
+                .scrollIntoView()
+                .click()
+            
+            // Check how the section, where the button "Try it out" exists, is displayed and click on the button
+            cy.get('#operations-Reviews-getReviewsById')
+                .children('div').eq(1)
+                .find('.opblock-section-header').eq(0)
+                .find('.tab-header > div > h4 > span')
+                .should('contain', 'Parameters');
+
+            cy.get('#operations-Reviews-getReviewsById')
+                .children('div').eq(1)
+                .find('.opblock-section-header').eq(0)
+                .find('.try-out > button')
+                .should('exist')
+                .should('contain', 'Try it out')
+                .click();
+            
+            // Now, check if the necessary fields, where the values of path parameters "landmarkId" and "reviewId"
+            // are going to be typed, really exist. Then type -1 as invalid landmarkId and 23 as valid reviewId to
+            // get response.
+            cy.get('#operations-Reviews-getReviewsById')
+                .find('.parameters-container > div')
+                .find('.parameters > tbody')
+                .find('tr[data-param-name="landmarkId"]') // Find the field where landmarkId should be typed
+                .find('input').clear()
+                .type('-1')
+                // The field, where landmarkId is typed, is two "levels" inside, so three parent() are needed to
+                // go back to <tbody> CSS selector
+                .parent().parent().parent()
+                .find('tr[data-param-name="reviewId"]') // Find the field where reviewId should be typed
+                .find('input').clear()
+                .type('23');
+
+            cy.get('#operations-Reviews-getReviewsById')
+                .find('.execute-wrapper > button').contains('Execute')
+                .click();
+
+            // Check if the no response is displayed when giving the invalid landmarkId as path parameter.
+            // Check if the only thing that is displyed is the example responses and nothing else.
+            // Also, check if the border/background-color of the field, where the value of path parameter
+            // "landmarkId" is typed, is red (explicit shades of red). Then check that this doesn't apply to
+            // the field of "reviewId".
+            cy.get('#operations-Reviews-getReviewsById')
+                .CSShelperFunctionForExampleResponses1();
+
+                // Now, check the border/background-color of two fields, where the value of path parameters
+                // "landmarkId" and "reviewId" are typed
+                cy.get('#operations-Reviews-getReviewsById')
+                .find('.parameters > tbody')
+                .find('tr[data-param-name="landmarkId"]')
+                .find('input')
+                    .should('have.css', 'border-color', 'rgb(249, 62, 62)')
+                    .and('have.css', 'background-color', 'rgb(254, 235, 235)')
+                    .and('have.class', 'invalid')
+                // The field, where landmarkId is typed, is two "levels" inside, so three parent() are needed to
+                // go back to <tbody> CSS selector
+                .parent().parent().parent()
+                .find('tr[data-param-name="reviewId"]') // Find the field where reviewId should be typed
+                .find('input')
+                    .should('have.css', 'border-color', 'rgb(217, 217, 217)')
+                    .and('have.css', 'background-color', 'rgb(255, 255, 255)')
+                    .and('not.have.class', 'invalid');
+    });
+
+    it('Execute a BAD REQUEST (2nd case): GET landmarks/{landmarkId}/reviews/{reviewId} giving WRONG value to the path parameter "reviewId"',
+        () => {
+            // In this test, confirm that no response is displayed when the request is not executed properly,
+            // giving an invalid reviewId as path parameter, while the given landmarkId is valid.
+            
+            // Try the GET landmarks/{landmarkId}/reviews/{reviewId} out.
+            // Confirm that the fields where the path parameters "landmarkId" and "reviewId" really exist and the
+            // path parameters can actually be typed.
+            cy.get('#operations-Reviews-getReviewsById')
+                .scrollIntoView()
+                .click()
+            
+            // Check how the section, where the button "Try it out" exists, is displayed and click on the button
+            cy.get('#operations-Reviews-getReviewsById')
+                .children('div').eq(1)
+                .find('.opblock-section-header').eq(0)
+                .find('.tab-header > div > h4 > span')
+                .should('contain', 'Parameters');
+
+            cy.get('#operations-Reviews-getReviewsById')
+                .children('div').eq(1)
+                .find('.opblock-section-header').eq(0)
+                .find('.try-out > button')
+                .should('exist')
+                .should('contain', 'Try it out')
+                .click();
+            
+            // Now, check if the necessary fields, where the values of path parameters "landmarkId" and "reviewId"
+            // are going to be typed, really exist. Then type 348 as valid landmarkId and "reviewId" as invalid reviewId
+            // to get response.
+            cy.get('#operations-Reviews-getReviewsById')
+                .find('.parameters-container > div')
+                .find('.parameters > tbody')
+                .find('tr[data-param-name="landmarkId"]') // Find the field where landmarkId should be typed
+                .find('input').clear()
+                .type('348')
+                // The field, where landmarkId is typed, is two "levels" inside, so three parent() are needed to
+                // go back to <tbody> CSS selector
+                .parent().parent().parent()
+                .find('tr[data-param-name="reviewId"]') // Find the field where reviewId should be typed
+                .find('input').clear()
+                .type('reviewId');
+
+            cy.get('#operations-Reviews-getReviewsById')
+                .find('.execute-wrapper > button').contains('Execute')
+                .click();
+
+            // Check if the no response is displayed when giving the invalid reviewId as path parameter.
+            // Check if the only thing that is displyed is the example responses and nothing else.
+            // Also, check if the border/background-color of the field, where the value of path parameter
+            // "reviewId" is typed, is red (explicit shades of red). Then check that this doesn't apply to the
+            // field of "landmarkId".
+            cy.get('#operations-Reviews-getReviewsById')
+                .CSShelperFunctionForExampleResponses1();
+                
+                // Now, check the border/background-color of two fields, where the value of path parameters
+                // "landmarkId" and "reviewId" are typed
+                cy.get('#operations-Reviews-getReviewsById')
+                .find('.parameters > tbody')
+                .find('tr[data-param-name="landmarkId"]')
+                .find('input')
+                    .should('have.css', 'border-color', 'rgb(217, 217, 217)')
+                    .and('have.css', 'background-color', 'rgb(255, 255, 255)')
+                    .and('not.have.class', 'invalid')
+                // The field, where landmarkId is typed, is two "levels" inside, so three parent() are needed to
+                // go back to <tbody> CSS selector
+                .parent().parent().parent()
+                .find('tr[data-param-name="reviewId"]') // Find the field where reviewId should be typed
+                .find('input')
+                    .should('have.css', 'border-color', 'rgb(249, 62, 62)')
+                    .and('have.css', 'background-color', 'rgb(254, 235, 235)')
+                    .and('have.class', 'invalid');
+    });
+
+    it('Execute a BAD REQUEST (3rd case): GET landmarks/{landmarkId}/reviews/{reviewId} giving WRONG values to the path parameters',
+        () => {
+            // In this test, confirm that no response is displayed when the request is not executed properly,
+            // giving an invalid reviewId as path parameter as well as an invalid landmarkId as path parameter.
+            
+            // Try the GET landmarks/{landmarkId}/reviews/{reviewId} out.
+            // Confirm that the fields where the path parameters "landmarkId" and "reviewId" really exist and the
+            // path parameters can actually be typed.
+            cy.get('#operations-Reviews-getReviewsById')
+                .scrollIntoView()
+                .click()
+            
+            // Check how the section, where the button "Try it out" exists, is displayed and click on the button
+            cy.get('#operations-Reviews-getReviewsById')
+                .children('div').eq(1)
+                .find('.opblock-section-header').eq(0)
+                .find('.tab-header > div > h4 > span')
+                .should('contain', 'Parameters');
+
+            cy.get('#operations-Reviews-getReviewsById')
+                .children('div').eq(1)
+                .find('.opblock-section-header').eq(0)
+                .find('.try-out > button')
+                .should('exist')
+                .should('contain', 'Try it out')
+                .click();
+            
+            // Now, check if the necessary fields, where the values of path parameters "landmarkId" and "reviewId"
+            // are going to be typed, really exist. Then type 348 as valid landmarkId and "reviewId" as invalid reviewId
+            // to get response.
+            cy.get('#operations-Reviews-getReviewsById')
+                .find('.parameters-container > div')
+                .find('.parameters > tbody')
+                .find('tr[data-param-name="landmarkId"]') // Find the field where landmarkId should be typed
+                .find('input').clear()
+                .type('0')
+                // The field, where landmarkId is typed, is two "levels" inside, so three parent() are needed to
+                // go back to <tbody> CSS selector
+                .parent().parent().parent()
+                .find('tr[data-param-name="reviewId"]') // Find the field where reviewId should be typed
+                .find('input').clear()
+                .type('2.5');
+
+            cy.get('#operations-Reviews-getReviewsById')
+                .find('.execute-wrapper > button').contains('Execute')
+                .click();
+
+            // Check if the no response is displayed when giving the invalid landmarkId as path parameter.
+            // Check if the only thing that is displyed is the example responses and nothing else.
+            // Also, check if the border/background-color of the fields, where the values of path parameters
+            // "landmarkId" and "reviewId" are typed, is red (explicit shade of red)
+            cy.get('#operations-Reviews-getReviewsById')
+                .CSShelperFunctionForExampleResponses1();
+                
+                // Now, check the border/background-color of two fields, where the value of path parameters
+                // "landmarkId" and "reviewId" are typed
+                cy.get('#operations-Reviews-getReviewsById')
+                .find('.parameters > tbody')
+                .find('tr[data-param-name="landmarkId"]')
+                .find('input')
+                .should('have.css', 'border-color', 'rgb(249, 62, 62)')
+                .and('have.css', 'background-color', 'rgb(254, 235, 235)')
+                .and('have.class', 'invalid')
+                // The field, where landmarkId is typed, is two "levels" inside, so three parent() are needed to
+                // go back to <tbody> CSS selector
+                .parent().parent().parent()
+                .find('tr[data-param-name="reviewId"]') // Find the field where reviewId should be typed
+                .find('input')
+                    .should('have.css', 'border-color', 'rgb(249, 62, 62)')
+                    .and('have.css', 'background-color', 'rgb(254, 235, 235)')
+                    .and('have.class', 'invalid');
+    });
+})
+
+describe('Acceptance & Frontend Testing for POST /landmarks/{landmarkId}/reviews', () => {
+    beforeEach(() => {
+        cy.visit('http://localhost:8080/docs');
+    });
+
+    it('Check that Swagger UI displays the endpoint', () => {
+        // In this test, confirm that the Swagger UI correclty displays the endpoint and the HTTP method
+        // as referred in API documentation.
+
+        // Confirm that the element exists and it is visible correclty.
+        cy.get('#operations-Reviews-addReview')
+            .CSShelperFunction1('rgb(73, 204, 144)', 'rgba(73, 204, 144, 0.1)');
+        
+        // Check if the name of "POST" HTTP Method is contained in the specific CSS selector which belongs to
+        // the above class selector with id=operations-Reviews-addReview.
+        cy.get('#operations-Reviews-addReview')
+            .find('div')
+            .find('span').eq(0)
+            .should('contain', 'POST');
+        
+        // Check if the path landmarks/{landmarkId}/review is contained in the specific CSS selector which
+        // belongs to the above class selector with id=operations-Reviews-addReview.
+        cy.get('#operations-Reviews-addReview')
+            .find('div')
+            .find('span[data-path="/landmarks/{landmarkId}/reviews"]')
+            .should('exist')
+            .parent()
+            .find('div')
+            .should('contain', 'Create a review');
+    });
+
+    it('Execute the request : POST landmarks/{landmarkId}/reviews properly to create a review for a specific landmark',
+        () => {
+            // In this test, confirm that the request is being executed correclty, while giving proper landmarkId
+            // as path parameter and giving a proper request body as required for the POST request.
+            
+            // Try the POST landmarks/{landmarkId}/reviews out.
+            // Confirm that the field where the path parameter "landmarkId" really exists and the path parameter
+            // can actually be typed.
+            cy.get('#operations-Reviews-addReview')
+                .scrollIntoView()
+                .click()
+            
+            // Check how the section, where the button "Try it out" exists, is displayed and click on the button
+            cy.get('#operations-Reviews-addReview')
+                .children('div').eq(1)
+                .find('.opblock-section-header').eq(0)
+                .find('.tab-header > div > h4 > span')
+                .should('contain', 'Parameters');
+
+            cy.get('#operations-Reviews-addReview')
+                .children('div').eq(1)
+                .find('.opblock-section-header').eq(0)
+                .find('.try-out > button')
+                .should('exist')
+                .should('contain', 'Try it out')
+                .click();
+
+            // Now, check if the necessary field, where the value of path parameter "landmarkId" is going to be
+            // typed, really exists. Then type 348 as valid landmarkId.
+            cy.get('#operations-Reviews-addReview')
+                .find('.parameters-container > div')
+                .find('.parameters > tbody')
+                .find('tr[data-param-name="landmarkId"]')
+                .find('input').clear()
+                .type('348');
+
+            // Now, check if the necessary field, where the required request body is going to be given, really
+            // exists. Also, check if the object that will constitute the required request body can be typed.
+            cy.get('#operations-Reviews-addReview')
+                .find('.opblock-section')
+                .children('div').eq(2)
+                .find('.opblock-section-header > h4')
+                .should('exist')
+                .should('contain', 'Request body') // Confirm that the head label "Request body" above the request body field exists.
+                // Also, check that the red colored "required" label exists after "Request body" label.
+                .then($el => {
+                    const after = window.getComputedStyle($el[0], '::after');
+                    expect(after.content).to.eq('"required"');
+                    expect(after.color).to.eq('rgba(255, 0, 0, 0.6)');
+                })
+                .parent().parent()
+                // Now, find the field where the request body is going to be given.
+                .find('.opblock-description-wrapper > div')
+                .find('.renderedMarkdown > p').should('exist').should('contain', 'Review')
+                .parent().parent()
+                .children('div').eq(2)
+                .find('.body-param > textarea').should('exist').and('be.visible')
+                .clear()
+                .type(`{
+                    "review_id": 2,
+                    "review_text": "This landmark worths visiting...",
+                    "date": "15th of November 2023",
+                    "numOfStars": 0,
+                    "comments": []
+                    }`, { parseSpecialCharSequences: false });
+
+            cy.get('#operations-Reviews-addReview')
+                .find('.execute-wrapper > button').contains('Execute')
+                .click();
+
+            // Check if the response is displayed correclty for valid landmarkId and proper request body.
+            cy.get('#operations-Reviews-addReview')
+                .CSShelperFunctionForResponse('201');
+    });
+
+    it('Execute a BAD REQUEST : POST landmarks/{landmarkId}/reviews giving WRONG value to the path parameter',
+        () => {
+            // In this test, confirm that no response is displayed when the request is not executed properly,
+            // because of giving an invalid landmarkId as path parameter.
+            
+            // Try the POST landmarks/{landmarkId}/reviews out.
+            // Confirm that the field where the path parameter "landmarkId" really exists and the path parameter
+            // can actually be typed.
+            cy.get('#operations-Reviews-addReview')
+                .scrollIntoView()
+                .click()
+            
+            // Check how the section, where the button "Try it out" exists, is displayed and click on the button
+            cy.get('#operations-Reviews-addReview')
+                .children('div').eq(1)
+                .find('.opblock-section-header').eq(0)
+                .find('.tab-header > div > h4 > span')
+                .should('contain', 'Parameters');
+
+            cy.get('#operations-Reviews-addReview')
+                .children('div').eq(1)
+                .find('.opblock-section-header').eq(0)
+                .find('.try-out > button')
+                .should('exist')
+                .should('contain', 'Try it out')
+                .click();
+
+            // Now, check if the necessary field, where the value of path parameter "landmarkId" is going to be
+            // typed, really exists. Then type -348 as invalid landmarkId to get response.
+            cy.get('#operations-Reviews-addReview')
+                .find('.parameters-container > div')
+                .find('.parameters > tbody')
+                .find('tr[data-param-name="landmarkId"]')
+                .find('input').clear()
+                .type('-348'); // Same behaviour if type anything that is not a positive integer
+
+            // Now, check if the necessary field, where the required request body is going to be given, really
+            // exists. Also, check if the object that will constitute the required request body can be typed.
+            cy.get('#operations-Reviews-addReview')
+                .find('.opblock-section')
+                .children('div').eq(2)
+                .find('.opblock-description-wrapper > div')
+                .find('.renderedMarkdown > p').should('exist').should('contain', 'Review')
+                .parent().parent()
+                .children('div').eq(2)
+                .find('.body-param > textarea').should('exist').and('be.visible')
+                .clear()
+                .type(`{
+                    "review_id": 2,
+                    "review_text": "This landmark worths visiting...",
+                    "date": "15th of November 2023",
+                    "numOfStars": 0,
+                    "comments": []
+                    }`, { parseSpecialCharSequences: false });
+
+            cy.get('#operations-Reviews-addReview')
+                .find('.execute-wrapper > button').contains('Execute')
+                .click();
+
+            // Check if the no response is displayed when giving the invalid landmarkId as path parameter.
+            // Check if the only thing that is displyed is the example responses and nothing else.
+            // Also, check if the border-color of the field, where the value of path parameter "landmarkId" is
+            // typed, is red (explicit shade of red: #f93e3e).
+            cy.get('#operations-Reviews-addReview')
+                .find('.responses-wrapper > div > h4').contains('Responses') // Check if the heading label "Responses" exists 
+                .parent().parent()
+                .find('.responses-inner').should('exist').and('be.visible')
+                // Check that no response is displayed for bad request. The only this displayed should be the
+                // example responses declared in API documentation
+                .children().should('have.length', 1)
+                
+                // Now, check that this children of the above CSS selector is refered to the example responses
+                .find('thead').should('exist').and('be.visible')
+                .parent()
+                .find('tbody')
+                // Check that the example response for successful operation of GET request existsand it's visible
+                .children('tr[data-code="201"]').should('exist').and('be.visible')
+                
+                // Check that the example response for unsuccessful operation because of "Invalid landmarkId
+                // supplied" (with response status code 400) exists and it is visible
+                .parent().children('tr[data-code="400"]').should('exist').and('be.visible')
+                
+                // Now, check the border/background-color of the field, where the value of path parameter
+                // "landmarkId" is typed.
+                cy.get('#operations-Reviews-addReview')
+                .find('.parameters > tbody')
+                .find('tr[data-param-name="landmarkId"]')
+                .find('input')
+                    .should('have.css', 'border-color', 'rgb(249, 62, 62)')
+                    .and('have.css', 'background-color', 'rgb(254, 235, 235)')
+                    .and('have.class', 'invalid');
+    });
+
+    it('Execute a BAD REQUEST : POST landmarks/{landmarkId}/reviews NOT giving the PROPER FORM of request body',
+        () => {
+            // In this test, confirm that the response displayed is 400 when the request is not executed properly,
+            // because of not giving a request body with the proper form.
+            
+            // Try the POST landmarks/{landmarkId}/reviews out.
+            // Confirm that the field where the path parameter "landmarkId" really exists and the path parameter
+            // can actually be typed.
+            cy.get('#operations-Reviews-addReview')
+                .scrollIntoView()
+                .click()
+            
+            // Check how the section, where the button "Try it out" exists, is displayed and click on the button
+            cy.get('#operations-Reviews-addReview')
+                .children('div').eq(1)
+                .find('.opblock-section-header').eq(0)
+                .find('.tab-header > div > h4 > span')
+                .should('contain', 'Parameters');
+
+            cy.get('#operations-Reviews-addReview')
+                .children('div').eq(1)
+                .find('.opblock-section-header').eq(0)
+                .find('.try-out > button')
+                .should('exist')
+                .should('contain', 'Try it out')
+                .click();
+
+            // Now, check if the necessary field, where the value of path parameter "landmarkId" is going to be
+            // typed, really exists. Then type 348 as valid landmarkId to get response.
+            cy.get('#operations-Reviews-addReview')
+                .find('.parameters-container > div')
+                .find('.parameters > tbody')
+                .find('tr[data-param-name="landmarkId"]')
+                .find('input').clear()
+                .type('348');
+
+            // Now, check if the necessary field, where the required request body is going to be given, really
+            // exists. Also, check if the object that will constitute the required request body can be typed.
+            // Type a request body, that does not have the proper form, e.g. the review_id and the review_text
+            // properties of a Review, which is going to be the request body, are omitted
+            cy.get('#operations-Reviews-addReview')
+                .find('.opblock-section')
+                .children('div').eq(2)
+                .find('.opblock-description-wrapper > div')
+                .find('.renderedMarkdown > p').should('exist').should('contain', 'Review')
+                .parent().parent()
+                .children('div').eq(2)
+                .find('.body-param > textarea').should('exist').and('be.visible')
+                .clear()
+                .type(`{
+                    "date": "15th of November 2023",
+                    "numOfStars": 0,
+                    "comments": []
+                    }`, { parseSpecialCharSequences: false });
+
+            cy.get('#operations-Reviews-addReview')
+                .find('.execute-wrapper > button').contains('Execute')
+                .click();
+
+            // Check if the response displayed, when POST is not executed correclty, is the expected.
+            cy.get('#operations-Reviews-addReview')
+                .CSShelperFunctionForResponse('400');
+    });
+
+})
