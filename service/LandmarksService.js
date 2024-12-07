@@ -165,7 +165,7 @@ exports.getLandmarkById = function(landmarkId) {
     var examples = {};
 
     examples['application/json'] = {
-      "id" : landmarkId,
+      "id" : 4,
       "name" : "Buda Castle",
       "details" : "Buda Castle is a historic royal palace in Budapest, Hungary.",
       "location" : ["47.4979° N", "19.0399° E"],
@@ -184,13 +184,11 @@ exports.getLandmarkById = function(landmarkId) {
       },
     };
 
-    resolve(examples[Object.keys(examples)[0]]);
-
-    // if (Object.keys(example).length > 0) {
-    //   resolve(examples[Object.keys(examples)[0]]);
-    // } else {
-    //   resolve();
-    // }
+    if (landmarkId == examples[Object.keys(examples)[0]].id) {
+      resolve(examples);
+    } else {
+      reject();
+    }
   });
 }
 

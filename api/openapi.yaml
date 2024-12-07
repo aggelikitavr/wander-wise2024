@@ -281,7 +281,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: successful operation
+          description: Landmark Found!
           content:
             application/json:
               schema:
@@ -292,7 +292,7 @@ paths:
         "400":
           description: Invalid landmarkId supplied
         "404":
-          description: Landmark not found
+          description: Landmark Not Found!
       x-swagger-router-controller: Landmarks
     delete:
       tags:
