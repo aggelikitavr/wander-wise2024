@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - wander-wise-main
-      - new-branch-theo
   pull_request:
     branches:
       - wander-wise-main
