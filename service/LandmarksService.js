@@ -1,6 +1,5 @@
 'use strict';
 
-
 /**
  * Create a landmark
  * FR6: Add landmark 
@@ -10,77 +9,51 @@
  **/
 exports.createLandmark = function(body) {
   return new Promise(function(resolve, reject) {
+
     var examples = {};
+
     examples['application/json'] = {
-  "reviews" : {
-    "date" : "15th of November 2023",
-    "review_id" : 2,
-    "numOfStars" : 2,
-    "comments" : "I agree with this review...",
-    "review_text" : "This landmark worths visiting..."
-  },
-  "name" : "The White Tower",
-  "details" : "Located near the city center, the White Tower is...",
-  "location" : [ "40.753°N", "40.753°N" ],
-  "id" : 124,
-  "photos" : {
-    "date" : "10th of August 2017",
-    "image" : [ 255, 255 ],
-    "name" : "Top view of the Tower.",
-    "id" : 16422
-  }
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
+      "id" : 4,
+      "name" : "Buda Castle",
+      "details" : "Buda Castle is a historic royal palace in Budapest, Hungary.",
+      "location" : ["47.4979° N", "19.0399° E"],
+      "photos" : {
+          "id" : 124,
+          "name" : "Top view of the castle.",
+          "date" : "21st of November 2024",
+          "image" : [0, 255],
+      },
+      "reviews" : {
+          "review_id" : 24,
+          "date" : "21st of November 2024",
+          "numOfStars" : 4,
+          "review_text" : "The view of the city is amazing from up there!",
+          "comments" : "Very helpful!",
+      },
+    };
 
-
-/**
- * Create a landmark
- * FR6: Add landmark 
- *
- * body Landmark Created landmark object (optional)
- * returns Landmark
- **/
-exports.createLandmark = function(body) {
-  return new Promise(function(resolve, reject) {
-    // var examples = {};
-    // examples['application/json'] = {
-    //   "reviews" : {
-    //     "date" : "15th of November 2023",
-    //     "review_id" : 2,
-    //     "numOfStars" : 2,
-    //     "comments" : "I agree with this review...",
-    //     "review_text" : "This landmark worths visiting..."
-    //   },
-    //   "name" : "The White Tower",
-    //   "details" : "Located near the city center, the White Tower is...",
-    //   "location" : [ "40.753°N", "40.753°N" ],
-    //   "id" : 124,
-    //   "photos" : {
-    //     "date" : "10th of August 2017",
-    //     "image" : [ 255, 255 ],
-    //     "name" : "Top view of the Tower.",
-    //     "id" : 16422
-    //   }
-    // };
-
-    var newLandmark = {
-      "id": body.id,
-      "name": body.name,
-      "details": body.details,
-      "location": body.location,
+    for (let key in body) {
+      if (!(key in examples[Object.keys(examples)[0]])) {
+        reject(body);
+        break;
+      }
     }
 
-    if (Object.keys(newLandmark).length == 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve(body);
-    }
+    // var newLandmark = {
+    //   "id": body.id,
+    //   "name": body.name,
+    //   "details": body.details,
+    //   "location": body.location,
+    // }
+
+    // resolve(newLandmark);
+    resolve(body);
+
+    // if (Object.keys(newLandmark).length == 0) {
+    //   resolve(examples[Object.keys(examples)[0]]);
+    // } else {
+    //   resolve(body);
+    // }
   });
 }
 
@@ -111,24 +84,25 @@ exports.getCommentById = function(landmarkId,reviewId,commentId) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
-  "reviews" : {
-    "date" : "15th of November 2023",
-    "review_id" : 2,
-    "numOfStars" : 2,
-    "comments" : "I agree with this review...",
-    "review_text" : "This landmark worths visiting..."
-  },
-  "name" : "The White Tower",
-  "details" : "Located near the city center, the White Tower is...",
-  "location" : [ "40.753°N", "40.753°N" ],
-  "id" : 124,
-  "photos" : {
-    "date" : "10th of August 2017",
-    "image" : [ 255, 255 ],
-    "name" : "Top view of the Tower.",
-    "id" : 16422
-  }
-};
+      "reviews" : {
+        "date" : "15th of November 2023",
+        "review_id" : 2,
+        "numOfStars" : 2,
+        "comments" : "I agree with this review...",
+        "review_text" : "This landmark worths visiting..."
+      },
+      "name" : "The White Tower",
+      "details" : "Located near the city center, the White Tower is...",
+      "location" : [ "40.753°N", "40.753°N" ],
+      "id" : 124,
+      "photos" : {
+        "date" : "10th of August 2017",
+        "image" : [ 255, 255 ],
+        "name" : "Top view of the Tower.",
+        "id" : 16422
+      }
+    };
+
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -149,25 +123,27 @@ exports.getCommentById = function(landmarkId,reviewId,commentId) {
 exports.getCommentsForReview = function(landmarkId,reviewId) {
   return new Promise(function(resolve, reject) {
     var examples = {};
+
     examples['application/json'] = {
-  "reviews" : {
-    "date" : "15th of November 2023",
-    "review_id" : 2,
-    "numOfStars" : 2,
-    "comments" : "I agree with this review...",
-    "review_text" : "This landmark worths visiting..."
-  },
-  "name" : "The White Tower",
-  "details" : "Located near the city center, the White Tower is...",
-  "location" : [ "40.753°N", "40.753°N" ],
-  "id" : 124,
-  "photos" : {
-    "date" : "10th of August 2017",
-    "image" : [ 255, 255 ],
-    "name" : "Top view of the Tower.",
-    "id" : 16422
-  }
-};
+      "reviews" : {
+        "date" : "15th of November 2023",
+        "review_id" : 2,
+        "numOfStars" : 2,
+        "comments" : "I agree with this review...",
+        "review_text" : "This landmark worths visiting..."
+      },
+      "name" : "The White Tower",
+      "details" : "Located near the city center, the White Tower is...",
+      "location" : [ "40.753°N", "40.753°N" ],
+      "id" : 124,
+      "photos" : {
+        "date" : "10th of August 2017",
+        "image" : [ 255, 255 ],
+        "name" : "Top view of the Tower.",
+        "id" : 16422
+      }
+    };
+
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
@@ -186,29 +162,31 @@ exports.getCommentsForReview = function(landmarkId,reviewId) {
 exports.getLandmarkById = function(landmarkId) {
   return new Promise(function(resolve, reject) {
     var examples = {};
+
     examples['application/json'] = {
-  "reviews" : {
-    "date" : "15th of November 2023",
-    "review_id" : 2,
-    "numOfStars" : 2,
-    "comments" : "I agree with this review...",
-    "review_text" : "This landmark worths visiting..."
-  },
-  "name" : "The White Tower",
-  "details" : "Located near the city center, the White Tower is...",
-  "location" : [ "40.753°N", "40.753°N" ],
-  "id" : 124,
-  "photos" : {
-    "date" : "10th of August 2017",
-    "image" : [ 255, 255 ],
-    "name" : "Top view of the Tower.",
-    "id" : 16422
-  }
-};
-    if (Object.keys(examples).length > 0) {
+      "id" : 4,
+      "name" : "Buda Castle",
+      "details" : "Buda Castle is a historic royal palace in Budapest, Hungary.",
+      "location" : ["47.4979° N", "19.0399° E"],
+      "photos" : {
+          "id" : 124,
+          "name" : "Top view of the castle.",
+          "date" : "21st of November 2024",
+          "image" : [0, 255],
+      },
+      "reviews" : {
+          "review_id" : 24,
+          "date" : "21st of November 2024",
+          "numOfStars" : 4,
+          "review_text" : "The view of the city is amazing from up there!",
+          "comments" : "Very helpful!",
+      },
+    };
+
+    if (landmarkId == examples[Object.keys(examples)[0]].id) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
-      resolve();
+      reject();
     }
   });
 }

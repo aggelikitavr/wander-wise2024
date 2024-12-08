@@ -71,7 +71,7 @@ paths:
               items:
                 $ref: '#/components/schemas/User'
       responses:
-        "200":
+        '201':
           description: Successful operation
           content:
             application/json:
@@ -108,7 +108,7 @@ paths:
         schema:
           type: string
       responses:
-        "200":
+        '200':
           description: successful operation
           headers:
             X-Rate-Limit:
@@ -252,8 +252,8 @@ paths:
             schema:
               $ref: '#/components/schemas/Landmark'
       responses:
-        default:
-          description: successful operation
+        '201':
+          description: Landmark Created!
           content:
             application/json:
               schema:
@@ -281,7 +281,7 @@ paths:
           format: int64
       responses:
         "200":
-          description: successful operation
+          description: Landmark Found!
           content:
             application/json:
               schema:
@@ -292,7 +292,7 @@ paths:
         "400":
           description: Invalid landmarkId supplied
         "404":
-          description: Landmark not found
+          description: Landmark Not Found!
       x-swagger-router-controller: Landmarks
     delete:
       tags:
@@ -391,13 +391,13 @@ paths:
               $ref: '#/components/schemas/ReviewForRequestBody'
         required: true
       responses:
-        "201":
+        '201':
           description: Review created successfully
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ReviewForRequestBody'
-        "400":
+        '400':
           description: Bad request. The review data or landmarkId is invalid.
       x-swagger-router-controller: Reviews
   /landmarks/{landmarkId}/reviews/{reviewId}:
@@ -541,17 +541,21 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Review'
+              $ref: '#/components/schemas/Review_Stars'
         required: true
       responses:
-        "200":
-          description: review response
+        '201':
+          description: Number of stars successfully updated!
         default:
           description: unexpected error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Review'
+        '400':
+          description: Bad Request
+        '404':
+          description: Review not found!
       x-swagger-router-controller: Reviews
   /landmarks/{landmarkId}/reviews/{reviewId}/comments:
     get:
@@ -1057,25 +1061,21 @@ components:
         reviews:
           $ref: '#/components/schemas/Landmark_reviews'
       example:
+        id: 124
+        name: The White Tower
+        details: "Located near the city center, the White Tower is..."
+        location: [40.6264°N, 22.9483°E]
+        photos:
+          id: 212
+          name: Top view of the Tower.
+          date: 10th of August 2017
+          image: [0, 255]
         reviews:
           date: 15th of November 2023
           review_id: 2
           numOfStars: 2
           comments: I agree with this review...
-          review_text: This landmark worths visiting...
-        name: The White Tower
-        details: "Located near the city center, the White Tower is..."
-        location:
-        - 40.753°N
-        - 40.753°N
-        id: 124
-        photos:
-          date: 10th of August 2017
-          image:
-          - 255
-          - 255
-          name: Top view of the Tower.
-          id: 16422
+          review_text: This landmark is worth visiting, because...
       xml:
         name: landmark
     Photo:
@@ -1127,6 +1127,15 @@ components:
         date:
           type: string
           example: 15th of November 2023
+    Review_Stars:
+      type: object
+      properties:
+        numOfStars:
+          maximum: 5
+          minimum: 1
+          type: integer
+          format: int64
+          example: 2
     Comment:
       type: object
       properties:

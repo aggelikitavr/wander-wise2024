@@ -6,10 +6,10 @@ var Landmarks = require('../service/LandmarksService');
 module.exports.createLandmark = function createLandmark (req, res, next, body) {
   Landmarks.createLandmark(body)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 201);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 400);
     });
 };
 
@@ -46,9 +46,9 @@ module.exports.getCommentsForReview = function getCommentsForReview (req, res, n
 module.exports.getLandmarkById = function getLandmarkById (req, res, next, landmarkId) {
   Landmarks.getLandmarkById(landmarkId)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 200);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 404);
     });
 };
