@@ -541,7 +541,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Review'
+              $ref: '#/components/schemas/Review_Stars'
         required: true
       responses:
         '201':
@@ -554,6 +554,8 @@ paths:
                 $ref: '#/components/schemas/Review'
         '400':
           description: Bad Request
+        '404':
+          description: Review not found!
       x-swagger-router-controller: Reviews
   /landmarks/{landmarkId}/reviews/{reviewId}/comments:
     get:
@@ -1125,6 +1127,15 @@ components:
         date:
           type: string
           example: 15th of November 2023
+    Review_Stars:
+      type: object
+      properties:
+        numOfStars:
+          maximum: 5
+          minimum: 1
+          type: integer
+          format: int64
+          example: 2
     Comment:
       type: object
       properties:

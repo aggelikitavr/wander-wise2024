@@ -74,8 +74,6 @@ exports.evaluateReview = function(body,landmarkId,reviewId) {
       reject();
     } else if (Object.keys(body)[0] != "numOfStars") {
       reject();
-    } else {
-      resolve(body);
     }
 
     if (mocklandmarkId == landmarkId && reviewId == examples[Object.keys(examples)[0]].review_id) {
