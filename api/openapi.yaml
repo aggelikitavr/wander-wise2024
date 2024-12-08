@@ -552,6 +552,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Review'
+        '400':
+          description: Bad Request
       x-swagger-router-controller: Reviews
   /landmarks/{landmarkId}/reviews/{reviewId}/comments:
     get:

@@ -52,7 +52,37 @@ exports.deleteReview = function(landmarkId,reviewId) {
  **/
 exports.evaluateReview = function(body,landmarkId,reviewId) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    var examples = {};
+    var mocklandmarkId = 4;
+
+    examples['application/json'] = {
+      "date" : "15th of November 2023",
+      "review_id" : 23,
+      "numOfStars" : 2,
+      "comments" : [
+        {
+          "id": 3,
+          "text": "I love the view from up there!",
+          "author": "WiseWanderer",
+          "date": "9th of July 2024",
+        }
+        ],
+      "review_text" : "This landmark is worth visiting..."
+    };
+
+    if (Object.keys(body).length > 1) {
+      reject();
+    } else if (Object.keys(body)[0] != "numOfStars") {
+      reject();
+    } else {
+      resolve(body);
+    }
+
+    if (mocklandmarkId == landmarkId && reviewId == examples[Object.keys(examples)[0]].review_id) {
+      resolve(body);
+    } else {
+      reject();
+    }
   });
 }
 
@@ -69,19 +99,19 @@ exports.getReviewsById = function(landmarkId,reviewId) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
-  "date" : "15th of November 2023",
-  "review_id" : 23,
-  "numOfStars" : 2,
-  "comments" : [
-    {
-      "id": 3,
-      "text": "I love the view from up there!",
-      "author": "WiseWanderer",
-      "date": "9th of July 2024",
-    }
-    ],
-  "review_text" : "This landmark worths visiting..."
-};
+      "date" : "15th of November 2023",
+      "review_id" : 23,
+      "numOfStars" : 2,
+      "comments" : [
+        {
+          "id": 3,
+          "text": "I love the view from up there!",
+          "author": "WiseWanderer",
+          "date": "9th of July 2024",
+        }
+        ],
+      "review_text" : "This landmark worths visiting..."
+    };
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]]);
     } else {
