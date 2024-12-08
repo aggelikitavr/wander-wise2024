@@ -26,7 +26,7 @@ module.exports.createExperience = function createExperience (req, res, next, bod
 module.exports.deleteExperience = function deleteExperience (req, res, next, experienceId) {
   Experiences.deleteExperience(experienceId)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response,200);
     })
     .catch(function (response) {
       utils.writeJson(res, response);
