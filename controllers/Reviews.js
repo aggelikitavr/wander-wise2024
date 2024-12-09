@@ -19,7 +19,7 @@ module.exports.deleteReview = function deleteReview (req, res, next, landmarkId,
       utils.writeJson(res, response,200);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response,400);
     });
 };
 

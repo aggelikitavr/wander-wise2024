@@ -487,24 +487,35 @@ paths:
           format: int64
           minimum: 1
           example: 23
-      responses:
-        "200":
-          description: Successful Operation - Successful Deletion
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: The review has been successfully deleted.
-        "400":
-          description: Unsuccessful Operation
-      security:
-      - reviews_auth:
-        - write:reviews
-        - read:reviews
-      x-swagger-router-controller: Reviews
+        responses:
+          "200":
+            description: Successful Operation - Successful Deletion
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: The review has been successfully deleted.
+                examples:
+                  successfulDeletion:
+                    value:
+                      message: The review has been successfully deleted.
+          "400":
+            description: Bad Request - Invalid input
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    error:
+                      type: string
+                      example: Invalid input: landmarkId or reviewId is incorrect.
+                examples:
+                  invalidInput:
+                    value:
+                      error: Invalid input: landmarkId or reviewId is incorrect.
   /landmarks/{landmarkId}/reviews/{reviewId}/numOfStars:
     post:
       tags:

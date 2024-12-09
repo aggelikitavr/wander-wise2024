@@ -34,27 +34,8 @@ exports.addReview = function(body,landmarkId) {
 exports.deleteReview = function(landmarkId,reviewId) {
   return new Promise(function(resolve, reject) {
    
-      var examples = {
-        "id" : 4,
-        "name" : "Buda Castle",
-        "details" : "Buda Castle is a historic royal palace in Budapest, Hungary.",
-        "location" : ["47.4979° N", "19.0399° E"],
-        "photos" : {
-            "id" : 124,
-            "name" : "Top view of the castle.",
-            "date" : "21st of November 2024",
-            "image" : [0, 255],
-        },
-        "reviews" : {
-            "review_id" : 24,
-            "date" : "21st of November 2024",
-            "numOfStars" : 4,
-            "review_text" : "The view of the city is amazing from up there!",
-            "comments" : "Very helpful!",
-        },
-      };
   
-      if (reviewId == 24 && landmarkId == 4) {
+      if (reviewId == 23 && landmarkId == 348) {
         resolve();
         console.log("review deleted successfully!");
       } else {

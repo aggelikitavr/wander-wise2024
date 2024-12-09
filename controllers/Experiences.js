@@ -29,7 +29,7 @@ module.exports.deleteExperience = function deleteExperience (req, res, next, exp
       utils.writeJson(res, response,200);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response,400);
     });
 };
 

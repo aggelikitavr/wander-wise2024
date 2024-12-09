@@ -21,3 +21,17 @@ test('DELETE /experiences/:experienceId deletes an experience', async (t) => {
 
   
 });
+
+// Test for DELETE /experiences/:experienceId with an invalid ID
+test('DELETE /experiences/:experienceId returns 404 for non-existent experience', async (t) => {
+    const { got } = t.context;
+
+    const invalidExperienceId = 9999; // Non-existent experience ID
+
+    // Make the DELETE request for a non-existent experience
+    const error = await t.throwsAsync(() => got.delete(`experiences/${invalidExperienceId}`), { instanceOf: got.HTTPError });
+
+    // Validate response
+    t.is(error.response.statusCode, 400); // Expecting 404 Not Found
+
+});
