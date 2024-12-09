@@ -7,7 +7,8 @@ test.after.always(teardown);
 // Test for DELETE /reviews/:reviewId
 test('DELETE /reviews/:reviewId deletes a review', async (t) => {
     const { got } = t.context;
-    
+    const reviewId = 23;
+    const landmarkId = 348;
     // Debugging: Verify the URL being used
     console.log(`Deleting review: reviewId=${reviewId}, landmarkId=${landmarkId}`);
 
