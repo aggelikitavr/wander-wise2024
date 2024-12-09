@@ -33,10 +33,14 @@ exports.addReview = function(body,landmarkId) {
  **/
 exports.deleteReview = function(landmarkId,reviewId) {
   return new Promise(function(resolve, reject) {
-    const successfulDeletion = {
-      message: "The review has been successfully deleted.",
-    };
-    resolve(successfulDeletion);
+   
+  
+      if (reviewId == 23 && landmarkId == 348) {
+        resolve();
+        console.log("review deleted successfully!");
+      } else {
+        reject();
+      }
   });
 }
 
