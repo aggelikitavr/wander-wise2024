@@ -16,10 +16,10 @@ module.exports.createLandmark = function createLandmark (req, res, next, body) {
 module.exports.deleteLandmark = function deleteLandmark (req, res, next, landmarkId) {
   Landmarks.deleteLandmark(landmarkId)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response,200);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response,400);
     });
 };
 

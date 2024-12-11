@@ -60,7 +60,18 @@ exports.createExperience = function(body) {
  **/
 exports.deleteExperience = function(experienceId) {
   return new Promise(function(resolve, reject) {
-    resolve();
+    var examples = {
+      'id': 22
+    };
+    
+    if (experienceId == examples.id) {
+      resolve();
+      console.log("experience deleted successfully!");
+    } else {
+      reject();
+    }
+
+    
   });
 }
 
