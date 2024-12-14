@@ -16,10 +16,10 @@ module.exports.addReview = function addReview (req, res, next, body, landmarkId)
 module.exports.deleteReview = function deleteReview (req, res, next, landmarkId, reviewId) {
   Reviews.deleteReview(landmarkId, reviewId)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response,200);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response,400);
     });
 };
 
