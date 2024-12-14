@@ -17,36 +17,13 @@ exports.createExperience = function(body) {
   "description" : "I had so much fun at the White Tower, because ...",
   "id" : 234
 };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+  for (let key in body) {
+    if (!(key in examples[Object.keys(examples)[0]])) {
+      reject(body);
+      break;
     }
-  });
-}
-
-
-/**
- * Create an experience
- * FR5: Create an Experience 
- *
- * body Experience Created experience object (optional)
- * returns Experience
- **/
-exports.createExperience = function(body) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "landmarkId" : 124,
-  "name" : "My experience at the White Tower",
-  "description" : "I had so much fun at the White Tower, because ...",
-  "id" : 234
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+  }
+  resolve(body);
   });
 }
 
@@ -70,8 +47,6 @@ exports.deleteExperience = function(experienceId) {
     } else {
       reject();
     }
-
-    
   });
 }
 
@@ -91,12 +66,12 @@ exports.getExperienceById = function(experienceId) {
   "description" : "I had so much fun at the White Tower, because ...",
   "id" : 234
 };
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
+    if (experienceId == examples[Object.keys(examples)[0]].id) {
+     resolve(examples[Object.keys(examples)[0]]);
+    }   else {
+      reject();
     }
-  });
+});
 }
 
 
@@ -125,9 +100,37 @@ exports.updateExperience = function(body,landmarkId,experienceId) {
  * experienceId Long experience id
  * no response value expected for this operation
  **/
-exports.updateExperience = function(body,landmarkId,experienceId) {
-  return new Promise(function(resolve, reject) {
-    resolve();
+exports.updateExperience = function (body, landmarkId, experienceId) {
+  return new Promise(function (resolve, reject) {
+    var example = {
+      id: experienceId,
+      name: "My experience at the White Tower",
+      description: "I had so much fun at the White Tower, because ...",
+      landmarkId: landmarkId,
+    };
+
+    for (let key in body) {
+      if (!(key in example)) {
+        return reject({
+          message: `Invalid field '${key}' in request body.`,
+          provided: body,
+        });
+      }
+    }
+
+    if (body.id) {
+      example.id = body.id;
+    }
+    if (body.name) {
+      example.name = body.name;
+    }
+    if (body.description) {
+      example.description = body.description;
+    }
+    if (body.landmarkId) {
+      example.landmarkId = body.landmarkId;
+    }
+    resolve(example);
   });
-}
+};
 
