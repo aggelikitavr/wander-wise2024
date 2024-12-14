@@ -4,6 +4,61 @@ const { setup, teardown } = require('../helpers/setup.js');
 test.before(setup);
 test.after.always(teardown);
 
+test('POST /experiences creates a new Experience', async (t) => {
+    const { got } = t.context;
+    const newExperience = {
+        "id": 234,
+        "name": "My experience at the White Tower",
+        "description": "I had so much fun at the White Tower, because ...",
+        "landmarkId": 124,
+    };
+
+    const response = await got.post('experiences', { json: newExperience });
+    t.is(response.statusCode, 201);
+    t.is(response.body.id, 234);
+    t.is(response.body.name, "My experience at the White Tower");
+    t.is(response.body.description, "I had so much fun at the White Tower, because ...");
+    t.is(response.body.landmarkId, 124);
+});
+
+test('POST /experiences with a wrong attribute type fails to create a new Experience', async (t) => {
+    const { got } = t.context;
+    const newWrongExperience = {
+        "id": "234", // 'id' should be a number, but here it's a string
+        "name": "My experience at the White Tower",
+        "description": "I had so much fun at the White Tower, because ...",
+        "landmarkId": 124,
+    };
+
+    try {
+        await got.post('experiences', {
+            json: newWrongExperience,
+            responseType: 'json',
+        });
+    } catch (error) {
+        t.is(error.response.statusCode, 400);
+    }
+});
+
+test('POST /experiences with a wrong attribute name fails to create a new Experience', async (t) => {
+    const { got } = t.context;
+    const newWrongExperience = {
+        "idd": 234, // 'idd' is not a valid attribute
+        "name": "My experience at the White Tower",
+        "description": "I had so much fun at the White Tower, because ...",
+        "landmarkId": 124,
+    };
+
+    try {
+        await got.post('experiences', {
+            json: newWrongExperience,
+            responseType: 'json',
+        });
+    } catch (error) {
+        t.is(error.response.statusCode, 400);
+    }
+});
+
 // Test for DELETE /experiences/:experienceId with a valid experience ID
 test('DELETE /experiences/:experienceId deletes an experience', async (t) => {
     const { got } = t.context;
