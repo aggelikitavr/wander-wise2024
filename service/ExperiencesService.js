@@ -30,8 +30,6 @@ exports.createExperience = function(body) {
 
 /**
  * Delete an experience
- * delete an experience
- *
  * experienceId Long Experience id to delete
  * no response value expected for this operation
  **/
@@ -53,7 +51,6 @@ exports.deleteExperience = function(experienceId) {
 
 /**
  * Get experience by experience id
- *
  * experienceId Long The name that needs to be fetched. Use 4 for testing. 
  * returns Experience
  **/
@@ -77,7 +74,6 @@ exports.getExperienceById = function(experienceId) {
 /**
  * Update experience
  * This can only be done by the logged in user.
- *
  * body Experience Update an existent experience in the store (optional)
  * landmarkId Long landmark id that needs to be added
  * experienceId Long experience id
