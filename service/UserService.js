@@ -29,38 +29,7 @@ exports.createUser = function(body) {
   });
 }
 
-
 /**
- * Create user
- * This can only be done by the logged in user.
- *
- * body User Created user object (optional)
- * returns User
- **/
-exports.createUser = function(body) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "firstName" : "John",
-  "lastName" : "James",
-  "password" : "12345",
-  "userStatus" : 1,
-  "phone" : "12345",
-  "id" : 10,
-  "email" : "john@email.com",
-  "username" : "theUser"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
-
-
-/**
- * Creates list of users with given input array
  * Creates list of users with given input array
  *
  * body List  (optional)
@@ -175,19 +144,3 @@ exports.updateUser = function(body,username) {
     resolve();
   });
 }
-
-
-/**
- * Update user
- * This can only be done by the logged in user.
- *
- * body User Update an existent user in the store (optional)
- * username String name that need to be deleted
- * no response value expected for this operation
- **/
-exports.updateUser = function(body,username) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
-
