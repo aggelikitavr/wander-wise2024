@@ -1,4 +1,4 @@
-const test = require('c8 ava');
+const test = require('ava');
 const { setup, teardown } = require('../helpers/setup.js');
 
 
