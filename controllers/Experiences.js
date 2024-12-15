@@ -6,20 +6,10 @@ var Experiences = require('../service/ExperiencesService');
 module.exports.createExperience = function createExperience (req, res, next, body) {
   Experiences.createExperience(body)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 201);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.createExperience = function createExperience (req, res, next, body) {
-  Experiences.createExperience(body)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 400);
     });
 };
 
@@ -36,29 +26,19 @@ module.exports.deleteExperience = function deleteExperience (req, res, next, exp
 module.exports.getExperienceById = function getExperienceById (req, res, next, experienceId) {
   Experiences.getExperienceById(experienceId)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 200);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 400);
     });
 };
 
 module.exports.updateExperience = function updateExperience (req, res, next, body, landmarkId, experienceId) {
   Experiences.updateExperience(body, landmarkId, experienceId)
     .then(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 200);
     })
     .catch(function (response) {
-      utils.writeJson(res, response);
-    });
-};
-
-module.exports.updateExperience = function updateExperience (req, res, next, body, landmarkId, experienceId) {
-  Experiences.updateExperience(body, landmarkId, experienceId)
-    .then(function (response) {
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response);
+      utils.writeJson(res, response, 400);
     });
 };

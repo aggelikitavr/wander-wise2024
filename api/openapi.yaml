@@ -869,8 +869,8 @@ paths:
             schema:
               $ref: '#/components/schemas/Experience'
       responses:
-        default:
-          description: successful operation
+        "201":
+          description: Experience created successfully
           content:
             application/json:
               schema:
@@ -878,6 +878,8 @@ paths:
             application/xml:
               schema:
                 $ref: '#/components/schemas/Experience'
+        "400":
+          description: Invalid experienceId supplied
       x-swagger-router-controller: Experiences
   /experiences/{experienceId}:
     get:
@@ -976,8 +978,12 @@ paths:
             schema:
               $ref: '#/components/schemas/Experience'
       responses:
-        default:
-          description: successful operation
+        "200":
+          description: Experience updated successfully
+        "400":
+          description: Experience update failed
+        "404":
+          description: Experience doesn't exist
       x-swagger-router-controller: Experiences
   /interactive_map:
     get:
