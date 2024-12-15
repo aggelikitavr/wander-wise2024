@@ -67,7 +67,6 @@ context('Experience', () => {
           .contains('404') 
           .should('exist');
     });
-});
     
     it('delete experience correctly', () => {
         // Locate the specific DELETE block for the experience operation
@@ -123,5 +122,4 @@ context('Experience', () => {
                 expect(op_text).to.eq('successful operationInvalid experience id value'); 
             });
     });
-
 });
