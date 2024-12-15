@@ -5,14 +5,13 @@ context('Experience', () => {
     var newExperience = '{"landmarkId": 124, "name": "My experience at the White Tower", "description": "I had so much fun at the White Tower, because ...", "id": 234}';
     var wrongExperienceId = "two-hundred-thirty-four";  // Invalid id type
     var experienceId = '234';
-    var Experience = 5; // Existing experience ID for the valid test case
 
     beforeEach(() => {
         cy.visit('http://localhost:8080/docs');
     });
 
     //Acceptance test for successful creation of experience
-    it('should return "Experience created successfully"', () => {
+    it('return "Experience created successfully"', () => {
 
         cy.get('#operations-Experiences-createExperience').click();
         cy.get('.try-out').contains('Try it out').click();
@@ -27,7 +26,7 @@ context('Experience', () => {
     });
 
     // Acceptance test for invalid creation of experience due to invalid id type
-    it('should return message stating the wrong parameter type for experience creation', () => {
+    it('return message stating the wrong parameter type for experience creation', () => {
         cy.get('#operations-Experiences-getExperienceById').click();
         cy.get('.try-out').contains('Try it out').click();
 
@@ -44,7 +43,7 @@ context('Experience', () => {
     });
 
     // Acceptance test for successful retrieve of experience
-    it('should return 200 (the Experience with experienceId was found and retrieved)', () => {
+    it('return 200 (the Experience with experienceId was found and retrieved)', () => {
         cy.get('#operations-Experiences-getExperienceById').click();
         cy.get('.try-out').contains('Try it out').click();
         cy.get('td.parameters-col_description > input:nth-child(2)').type(experienceId);
@@ -53,7 +52,7 @@ context('Experience', () => {
     });
 
     // Acceptance test for invalid experience Id
-    it('should not return a "Response body" for an invalid experienceId', () => {
+    it('not return a "Response body" for an invalid experienceId', () => {
         cy.get('#operations-Experiences-getExperienceById').click();
         cy.get('.try-out').contains('Try it out').click();
         
@@ -121,5 +120,47 @@ context('Experience', () => {
                 // Adjust this based on your API's error message for invalid IDs
                 expect(op_text).to.eq('successful operationInvalid experience id value'); 
             });
+    });
+
+
+    // Acceptance test for PUT /experiences/{experienceId}/{landmarkId} for successful update of an experience
+    it('update an existing experience successfully', () => {
+        const updatedExperience = {
+            id: 234,
+            name: 'Updated experience at the White Tower',
+            description: 'I visited again, and it was even better!',
+            landmarkId: 124
+        };
+
+        cy.request({
+            method: 'PUT',
+            url: `/experiences/${updatedExperience.id}/${updatedExperience.landmarkId}`,
+            body: updatedExperience
+        }).then((response) => {
+            expect(response.status).to.eq(200);
+            expect(response.body.id).to.eq(updatedExperience.id);
+            expect(response.body.name).to.eq(updatedExperience.name);
+            expect(response.body.description).to.eq(updatedExperience.description);
+            expect(response.body.landmarkId).to.eq(updatedExperience.landmarkId);
+        });
+    });
+
+    // Acceptance test for PUT /experiences/{experienceId}/{landmarkId} for update failure due to invalid id type
+    it('return 400 if the update contains invalid data', () => {
+        const invalidExperience = {
+            id: "234", // Invalid id type
+            name: "newExperience",
+            description: "Best experience of my life",
+            landmarkId: "134", // Invalid id type
+        };
+
+        cy.request({
+            method: 'PUT',
+            url: `/experiences/234/124`,
+            body: invalidExperience,
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.eq(400);
+        });
     });
 });
