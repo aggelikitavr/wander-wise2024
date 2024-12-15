@@ -765,7 +765,7 @@ context('Acceptance & Frontend Testing for POST /landmarks/{landmarkId}/reviews'
     });
 
 
-context('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews', () => {
+    context('Acceptance & Frontend Testing for POST /landmarks/{landmarkId}/reviews/{reviewId}/numOfStars', () => {
 
     var newEvaluation = '{ "numOfStars": 4 }';
     var landmarkId = '4';
@@ -823,7 +823,7 @@ context('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews',
     });
 });
 
-context('Acceptance & Frontend Testing for Delete /landmarks/{landmarkId}/reviews', () => {
+context('Acceptance & Frontend Testing for Delete /landmarks/{landmarkId}/reviews/{reviewId}', () => {
     const swaggerUrl = 'http://localhost:8080/docs';
     const validLandmarkId = 348;
     const validReviewId = 23;
