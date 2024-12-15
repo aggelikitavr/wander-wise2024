@@ -74,23 +74,6 @@ exports.getExperienceById = function(experienceId) {
 });
 }
 
-
-/**
- * Update experience
- * This can only be done by the logged in user.
- *
- * body Experience Update an existent experience in the store (optional)
- * landmarkId Long landmark id that needs to be added
- * experienceId Long experience id
- * no response value expected for this operation
- **/
-exports.updateExperience = function(body,landmarkId,experienceId) {
-  return new Promise(function(resolve, reject) {
-    resolve();
-  });
-}
-
-
 /**
  * Update experience
  * This can only be done by the logged in user.
