@@ -190,6 +190,26 @@ Cypress.Commands.add('CSShelperFunctionFillingLandmarkIdFieldForPOSTReviewOperat
 });
 
 
+// CSShelperFunctionAddingRequestBodyForPOSTReviewOperation refers to POST operation for
+// landmarks/{landmarkId}/reviews endpoint and it executes the operation since giving the needed request body
+// in any case.
+Cypress.Commands.add('CSShelperFunctionAddingRequestBodyForPOSTReviewOperation', {prevSubject: true},
+    (subject, requestBody) => {
+        cy.wrap(subject)
+            .find('.opblock-description-wrapper > div')
+            .find('.renderedMarkdown > p').should('exist').should('contain', 'Review')
+            .parent().parent()
+            .children('div').eq(2)
+            .find('.body-param > textarea').should('exist').and('be.visible')
+            .clear()
+            .type(JSON.stringify(requestBody, null, 2), { parseSpecialCharSequences: false });
+
+        cy.get('#operations-Reviews-addReview')
+            .find('.execute-wrapper > button').contains('Execute')
+            .click();
+});
+
+
 context('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews', () => {
     beforeEach(() => {
         cy.visit('http://localhost:8080/docs');
@@ -248,15 +268,15 @@ context('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews',
             cy.get('#operations-Reviews-getReviewsForLandmark')
                 .CSShelperFunctionForExampleResponses1();
 
-                // Now, check the border/background-color of the field, where the value of path parameter
-                // "landmarkId" is typed.
-                cy.get('#operations-Reviews-getReviewsForLandmark')
-                .find('.parameters > tbody')
-                .find('tr[data-param-name="landmarkId"]')
-                .find('input')
-                    .should('have.css', 'border-color', 'rgb(249, 62, 62)')
-                    .and('have.css', 'background-color', 'rgb(254, 235, 235)')
-                    .and('have.class', 'invalid');
+            // Now, check the border/background-color of the field, where the value of path parameter
+            // "landmarkId" is typed.
+            cy.get('#operations-Reviews-getReviewsForLandmark')
+            .find('.parameters > tbody')
+            .find('tr[data-param-name="landmarkId"]')
+            .find('input')
+                .should('have.css', 'border-color', 'rgb(249, 62, 62)')
+                .and('have.css', 'background-color', 'rgb(254, 235, 235)')
+                .and('have.class', 'invalid');
     });
 
 })
@@ -319,23 +339,23 @@ context('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews/{
             cy.get('#operations-Reviews-getReviewsById')
                 .CSShelperFunctionForExampleResponses1();
 
-                // Now, check the border/background-color of two fields, where the value of path parameters
-                // "landmarkId" and "reviewId" are typed
-                cy.get('#operations-Reviews-getReviewsById')
-                .find('.parameters > tbody')
-                .find('tr[data-param-name="landmarkId"]')
-                .find('input')
-                    .should('have.css', 'border-color', 'rgb(249, 62, 62)')
-                    .and('have.css', 'background-color', 'rgb(254, 235, 235)')
-                    .and('have.class', 'invalid')
-                // The field, where landmarkId is typed, is two "levels" inside, so three parent() are needed to
-                // go back to <tbody> CSS selector
-                .parent().parent().parent()
-                .find('tr[data-param-name="reviewId"]') // Find the field where reviewId should be typed
-                .find('input')
-                    .should('have.css', 'border-color', 'rgb(217, 217, 217)')
-                    .and('have.css', 'background-color', 'rgb(255, 255, 255)')
-                    .and('not.have.class', 'invalid');
+            // Now, check the border/background-color of two fields, where the value of path parameters
+            // "landmarkId" and "reviewId" are typed
+            cy.get('#operations-Reviews-getReviewsById')
+            .find('.parameters > tbody')
+            .find('tr[data-param-name="landmarkId"]')
+            .find('input')
+                .should('have.css', 'border-color', 'rgb(249, 62, 62)')
+                .and('have.css', 'background-color', 'rgb(254, 235, 235)')
+                .and('have.class', 'invalid')
+            // The field, where landmarkId is typed, is two "levels" inside, so three parent() are needed to
+            // go back to <tbody> CSS selector
+            .parent().parent().parent()
+            .find('tr[data-param-name="reviewId"]') // Find the field where reviewId should be typed
+            .find('input')
+                .should('have.css', 'border-color', 'rgb(217, 217, 217)')
+                .and('have.css', 'background-color', 'rgb(255, 255, 255)')
+                .and('not.have.class', 'invalid');
     });
 
     it('Execute a BAD REQUEST (2nd case): GET landmarks/{landmarkId}/reviews/{reviewId} giving WRONG value to the path parameter "reviewId"',
@@ -353,23 +373,23 @@ context('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews/{
             cy.get('#operations-Reviews-getReviewsById')
                 .CSShelperFunctionForExampleResponses1();
                 
-                // Now, check the border/background-color of two fields, where the value of path parameters
-                // "landmarkId" and "reviewId" are typed
-                cy.get('#operations-Reviews-getReviewsById')
-                .find('.parameters > tbody')
-                .find('tr[data-param-name="landmarkId"]')
-                .find('input')
-                    .should('have.css', 'border-color', 'rgb(217, 217, 217)')
-                    .and('have.css', 'background-color', 'rgb(255, 255, 255)')
-                    .and('not.have.class', 'invalid')
-                // The field, where landmarkId is typed, is two "levels" inside, so three parent() are needed to
-                // go back to <tbody> CSS selector
-                .parent().parent().parent()
-                .find('tr[data-param-name="reviewId"]') // Find the field where reviewId should be typed
-                .find('input')
-                    .should('have.css', 'border-color', 'rgb(249, 62, 62)')
-                    .and('have.css', 'background-color', 'rgb(254, 235, 235)')
-                    .and('have.class', 'invalid');
+            // Now, check the border/background-color of two fields, where the value of path parameters
+            // "landmarkId" and "reviewId" are typed
+            cy.get('#operations-Reviews-getReviewsById')
+            .find('.parameters > tbody')
+            .find('tr[data-param-name="landmarkId"]')
+            .find('input')
+                .should('have.css', 'border-color', 'rgb(217, 217, 217)')
+                .and('have.css', 'background-color', 'rgb(255, 255, 255)')
+                .and('not.have.class', 'invalid')
+            // The field, where landmarkId is typed, is two "levels" inside, so three parent() are needed to
+            // go back to <tbody> CSS selector
+            .parent().parent().parent()
+            .find('tr[data-param-name="reviewId"]') // Find the field where reviewId should be typed
+            .find('input')
+                .should('have.css', 'border-color', 'rgb(249, 62, 62)')
+                .and('have.css', 'background-color', 'rgb(254, 235, 235)')
+                .and('have.class', 'invalid');
     });
 
     it('Execute a BAD REQUEST (3rd case): GET landmarks/{landmarkId}/reviews/{reviewId} giving WRONG values to the path parameters',
@@ -386,23 +406,23 @@ context('Acceptance & Frontend Testing for GET /landmarks/{landmarkId}/reviews/{
             cy.get('#operations-Reviews-getReviewsById')
                 .CSShelperFunctionForExampleResponses1();
                 
-                // Now, check the border/background-color of two fields, where the value of path parameters
-                // "landmarkId" and "reviewId" are typed
-                cy.get('#operations-Reviews-getReviewsById')
-                .find('.parameters > tbody')
-                .find('tr[data-param-name="landmarkId"]')
-                .find('input')
+            // Now, check the border/background-color of two fields, where the value of path parameters
+            // "landmarkId" and "reviewId" are typed
+            cy.get('#operations-Reviews-getReviewsById')
+            .find('.parameters > tbody')
+            .find('tr[data-param-name="landmarkId"]')
+            .find('input')
+            .should('have.css', 'border-color', 'rgb(249, 62, 62)')
+            .and('have.css', 'background-color', 'rgb(254, 235, 235)')
+            .and('have.class', 'invalid')
+            // The field, where landmarkId is typed, is two "levels" inside, so three parent() are needed to
+            // go back to <tbody> CSS selector
+            .parent().parent().parent()
+            .find('tr[data-param-name="reviewId"]') // Find the field where reviewId should be typed
+            .find('input')
                 .should('have.css', 'border-color', 'rgb(249, 62, 62)')
                 .and('have.css', 'background-color', 'rgb(254, 235, 235)')
-                .and('have.class', 'invalid')
-                // The field, where landmarkId is typed, is two "levels" inside, so three parent() are needed to
-                // go back to <tbody> CSS selector
-                .parent().parent().parent()
-                .find('tr[data-param-name="reviewId"]') // Find the field where reviewId should be typed
-                .find('input')
-                    .should('have.css', 'border-color', 'rgb(249, 62, 62)')
-                    .and('have.css', 'background-color', 'rgb(254, 235, 235)')
-                    .and('have.class', 'invalid');
+                .and('have.class', 'invalid');
     });
 })
 
@@ -441,6 +461,14 @@ context('Acceptance & Frontend Testing for POST /landmarks/{landmarkId}/reviews'
         () => {
             // In this test, confirm that the request is being executed correclty, while giving proper landmarkId
             // as path parameter and giving a proper request body as required for the POST request.
+            const requestBody = {
+                        "review_id": 2,
+                        "review_text": "This landmark worths visiting...",
+                        "date": "15th of November 2023",
+                        "numOfStars": 0,
+                        "comments": []
+                        };
+
             // Type 348 as valid landmarkId.
             cy.CSShelperFunctionFillingLandmarkIdFieldForPOSTReviewOperation('348');
 
@@ -460,23 +488,7 @@ context('Acceptance & Frontend Testing for POST /landmarks/{landmarkId}/reviews'
                 })
                 .parent().parent()
                 // Now, find the field where the request body is going to be given.
-                .find('.opblock-description-wrapper > div')
-                .find('.renderedMarkdown > p').should('exist').should('contain', 'Review')
-                .parent().parent()
-                .children('div').eq(2)
-                .find('.body-param > textarea').should('exist').and('be.visible')
-                .clear()
-                .type(`{
-                    "review_id": 2,
-                    "review_text": "This landmark worths visiting...",
-                    "date": "15th of November 2023",
-                    "numOfStars": 0,
-                    "comments": []
-                    }`, { parseSpecialCharSequences: false });
-
-            cy.get('#operations-Reviews-addReview')
-                .find('.execute-wrapper > button').contains('Execute')
-                .click();
+                .CSShelperFunctionAddingRequestBodyForPOSTReviewOperation(requestBody);
 
             // Check if the response is displayed correclty for valid landmarkId and proper request body.
             cy.get('#operations-Reviews-addReview')
@@ -487,6 +499,14 @@ context('Acceptance & Frontend Testing for POST /landmarks/{landmarkId}/reviews'
         () => {
             // In this test, confirm that no response is displayed when the request is not executed properly,
             // because of giving an invalid landmarkId as path parameter.
+            const requestBody = {
+                "review_id": 2,
+                "review_text": "This landmark worths visiting...",
+                "date": "15th of November 2023",
+                "numOfStars": 0,
+                "comments": []
+                };
+
             // Type -348 as invalid landmarkId to get response. Same behavioural response will occur if type
             // anything that is not a positive integer.
             cy.CSShelperFunctionFillingLandmarkIdFieldForPOSTReviewOperation('-348');
@@ -496,23 +516,7 @@ context('Acceptance & Frontend Testing for POST /landmarks/{landmarkId}/reviews'
             cy.get('#operations-Reviews-addReview')
                 .find('.opblock-section')
                 .children('div').eq(2)
-                .find('.opblock-description-wrapper > div')
-                .find('.renderedMarkdown > p').should('exist').should('contain', 'Review')
-                .parent().parent()
-                .children('div').eq(2)
-                .find('.body-param > textarea').should('exist').and('be.visible')
-                .clear()
-                .type(`{
-                    "review_id": 2,
-                    "review_text": "This landmark worths visiting...",
-                    "date": "15th of November 2023",
-                    "numOfStars": 0,
-                    "comments": []
-                    }`, { parseSpecialCharSequences: false });
-
-            cy.get('#operations-Reviews-addReview')
-                .find('.execute-wrapper > button').contains('Execute')
-                .click();
+                .CSShelperFunctionAddingRequestBodyForPOSTReviewOperation(requestBody);
 
             // Check if the no response is displayed when giving the invalid landmarkId as path parameter.
             // Check if the only thing that is displyed is the example responses and nothing else.
@@ -552,6 +556,12 @@ context('Acceptance & Frontend Testing for POST /landmarks/{landmarkId}/reviews'
         () => {
             // In this test, confirm that the response displayed is 400 when the request is not executed properly,
             // because of not giving a request body with the proper form.
+            const requestBody = {
+                "date": "15th of November 2023",
+                "numOfStars": 0,
+                "comments": []
+                };
+
             // For this test, type 348 as a valid landmarkId to get response.
             cy.CSShelperFunctionFillingLandmarkIdFieldForPOSTReviewOperation('348');
 
@@ -562,22 +572,8 @@ context('Acceptance & Frontend Testing for POST /landmarks/{landmarkId}/reviews'
             cy.get('#operations-Reviews-addReview')
                 .find('.opblock-section')
                 .children('div').eq(2)
-                .find('.opblock-description-wrapper > div')
-                .find('.renderedMarkdown > p').should('exist').should('contain', 'Review')
-                .parent().parent()
-                .children('div').eq(2)
-                .find('.body-param > textarea').should('exist').and('be.visible')
-                .clear()
-                .type(`{
-                    "date": "15th of November 2023",
-                    "numOfStars": 0,
-                    "comments": []
-                    }`, { parseSpecialCharSequences: false });
-
-            cy.get('#operations-Reviews-addReview')
-                .find('.execute-wrapper > button').contains('Execute')
-                .click();
-
+                .CSShelperFunctionAddingRequestBodyForPOSTReviewOperation(requestBody);
+            
             // Check if the response displayed, when POST is not executed correclty, is the expected.
             cy.get('#operations-Reviews-addReview')
                 .CSShelperFunctionForResponse('400');
