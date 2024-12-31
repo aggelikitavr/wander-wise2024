@@ -51,7 +51,7 @@ module.exports.getUserByName = function getUserByName (_, res, next, username) {
     });
 };
 
-module.exports.loginUser = function loginUser (_, res, next, username, password) {
+module.exports.loginUser = function loginUser ({_, res, next, username, password}) {
   User.loginUser(username, password)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -75,7 +75,7 @@ module.exports.logoutUser = function logoutUser (_, res, next) {
     });
 };
 
-module.exports.updateUser = function updateUser (_, res, next, body, username) {
+module.exports.updateUser = function updateUser ({_, res, next, body, username}) {
   User.updateUser(body, username)
     .then(function (response) {
       utils.writeJson(res, response);
