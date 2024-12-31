@@ -1,3 +1,14 @@
+/*
+
+This file was created to automate the process
+of defining a setup and teardown process for
+running tests on an HTTP server.
+
+It is useful since every unit test file requires
+these actions.
+
+*/
+
 const http = require('http');
 const got = require('got');
 const app = require('../../index.js');
