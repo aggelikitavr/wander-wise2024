@@ -3,9 +3,8 @@
 var utils = require('../utils/writer.js');
 var Landmarks = require('../service/LandmarksService');
 
-// T
 
-module.exports.createLandmark = function createLandmark (req, res, next, body) {
+module.exports.createLandmark = function createLandmark (_, res, _, body) {
   Landmarks.createLandmark(body)
     .then(function (response) {
       utils.writeJson(res, response, 201);
@@ -15,7 +14,7 @@ module.exports.createLandmark = function createLandmark (req, res, next, body) {
     });
 };
 
-module.exports.deleteLandmark = function deleteLandmark (req, res, next, landmarkId) {
+module.exports.deleteLandmark = function deleteLandmark (_, res, _, landmarkId) {
   Landmarks.deleteLandmark(landmarkId)
     .then(function (response) {
       utils.writeJson(res, response,200);
@@ -25,7 +24,7 @@ module.exports.deleteLandmark = function deleteLandmark (req, res, next, landmar
     });
 };
 
-module.exports.getCommentById = function getCommentById (req, res, next, landmarkId, reviewId, commentId) {
+module.exports.getCommentById = function getCommentById (_, res, _, landmarkId, reviewId, commentId) {
   Landmarks.getCommentById(landmarkId, reviewId, commentId)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -35,7 +34,7 @@ module.exports.getCommentById = function getCommentById (req, res, next, landmar
     });
 };
 
-module.exports.getCommentsForReview = function getCommentsForReview (req, res, next, landmarkId, reviewId) {
+module.exports.getCommentsForReview = function getCommentsForReview (_, res, _, landmarkId, reviewId) {
   Landmarks.getCommentsForReview(landmarkId, reviewId)
     .then(function (response) {
       utils.writeJson(res, response);
@@ -45,7 +44,7 @@ module.exports.getCommentsForReview = function getCommentsForReview (req, res, n
     });
 };
 
-module.exports.getLandmarkById = function getLandmarkById (req, res, next, landmarkId) {
+module.exports.getLandmarkById = function getLandmarkById (_, res, _, landmarkId) {
   Landmarks.getLandmarkById(landmarkId)
     .then(function (response) {
       utils.writeJson(res, response, 200);
