@@ -70,8 +70,27 @@ exports.createUsersWithListInput = function(body) {
 
     // If `body` is provided properly, resolve the promise
     // using createUserExample, which returns a promise
-    return createUserExample();
-  })
+    var examples = [];
+    examples['application/json'] = [
+      {
+        "firstName" : "John",
+        "lastName" : "James",
+        "password" : "12345",
+        "userStatus" : 1,
+        "phone" : "12345",
+        "id" : 10,
+        "email" : "john@email.com",
+        "username" : "theUser"
+      }
+    ];
+
+    if (Object.keys(examples).length > 0) {
+      resolve(examples[Object.keys(examples)[0]]);
+    } else {
+      resolve();
+    }
+
+  });
 }
 
 
@@ -128,7 +147,8 @@ exports.loginUser = function(username,password) {
   return new Promise(function(resolve, reject) {
     // Check if both parameters `username` and `password` are provided
     if (!username || !password) {
-      reject(new Error("Both username and password are required"))
+      reject(new Error("Both username and password are required"));
+      return;
     }
 
     // If `body` and `username` are provided properly, continue to resolve the promise
