@@ -13,6 +13,7 @@ const http = require('http');
 const got = require('got');
 const app = require('../../index.js');
 
+// Prepares everything before running each test (for example starting the server)
 async function setup(t) {
     t.context.server = http.createServer(app);
     const server = t.context.server.listen();
@@ -23,6 +24,7 @@ async function setup(t) {
     });
 }
 
+// Cleans up after the test
 function teardown(t) {
     t.context.server.close();
 }

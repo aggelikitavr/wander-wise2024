@@ -3,6 +3,8 @@
 var utils = require('../utils/writer.js');
 var Landmarks = require('../service/LandmarksService');
 
+// T
+
 module.exports.createLandmark = function createLandmark (req, res, next, body) {
   Landmarks.createLandmark(body)
     .then(function (response) {
