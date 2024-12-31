@@ -8,7 +8,7 @@
  * @returns {Promise}
  */
 const createUserExample = () => {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve, _reject) {
     var examples = {};
     examples['application/json'] = {
   "firstName" : "John",
