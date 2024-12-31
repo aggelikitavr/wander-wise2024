@@ -61,7 +61,7 @@ exports.createUser = function(body) {
  * returns User
  **/
 exports.createUsersWithListInput = function(body) {
-  return new Promise(function(_, reject) {
+  return new Promise(function(resolve, reject) {
     // Check if parameter `body` is provided
     if (!body) {
       reject(new Error("Body is required."));
