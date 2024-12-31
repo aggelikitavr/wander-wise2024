@@ -29,20 +29,7 @@ test('POST /landmarks creates a new Landmark', async (t) => {
 
     const response = await got.post('landmarks', { json: newLandmark });
     t.is(response.statusCode, 201);
-    t.is(response.body.id, 4);
-    t.is(response.body.name, 'Buda Castle');
-    t.is(response.body.details, 'Buda Castle is a historic royal palace in Budapest, Hungary.');
-    t.is(response.body.location.length, 2);
-    t.deepEqual(response.body.location, ['47.4979° N', '19.0399° E']);
-    t.is(response.body.photos.id, 124);
-    t.is(response.body.photos.name, 'Top view of the castle.');
-    t.is(response.body.photos.date, '21st of November 2024');
-    t.deepEqual(response.body.photos.image, [0, 255]);
-    t.is(response.body.reviews.review_id, 24);
-    t.is(response.body.reviews.date, '21st of November 2024');
-    t.is(response.body.reviews.numOfStars, 4);
-    t.is(response.body.reviews.review_text, 'The view of the city is amazing from up there!');
-    t.is(response.body.reviews.comments, 'Very helpful!');
+    validateGenericLandmark(t, response.body)
 });
 
 test('POST /landmarks with a wrong attribute type fails to create a new Landmark', async (t) => {
@@ -94,20 +81,7 @@ test('GET /landmarks/{landmarkId} returns a Landmark with id equal to landmarkId
 
     const response = await got.get('landmarks/' + '4');
     t.is(response.statusCode, 200);
-    t.is(response.body.id, 4);
-    t.is(response.body.name, 'Buda Castle');
-    t.is(response.body.details, 'Buda Castle is a historic royal palace in Budapest, Hungary.');
-    t.is(response.body.location.length, 2);
-    t.deepEqual(response.body.location, ['47.4979° N', '19.0399° E']);
-    t.is(response.body.photos.id, 124);
-    t.is(response.body.photos.name, 'Top view of the castle.');
-    t.is(response.body.photos.date, '21st of November 2024');
-    t.deepEqual(response.body.photos.image, [0, 255]);
-    t.is(response.body.reviews.review_id, 24);
-    t.is(response.body.reviews.date, '21st of November 2024');
-    t.is(response.body.reviews.numOfStars, 4);
-    t.is(response.body.reviews.review_text, 'The view of the city is amazing from up there!');
-    t.is(response.body.reviews.comments, 'Very helpful!');
+    validateGenericLandmark(t, response.body)
 });
 
 test('GET /landmarks/{landmarkId} returns error 404 if landmarkId does not exist', async (t) => {
@@ -159,4 +133,21 @@ test('DELETE /landmarks/:landmarkId returns 400 for invalid (negative) landmarkI
     // Validate that the response status code is 400 (Bad Request) for the invalid (negative) landmarkId
     t.is(error.response.statusCode, 400); // Expecting 400 status code, indicating bad request due to invalid ID
 });
+
+function validateGenericLandmark(t, landmark) {
+    t.is(landmark.id, 4);
+    t.is(landmark.name, 'Buda Castle');
+    t.is(landmark.details, 'Buda Castle is a historic royal palace in Budapest, Hungary.');
+    t.is(landmark.location.length, 2);
+    t.deepEqual(landmark.location, ['47.4979° N', '19.0399° E']);
+    t.is(landmark.photos.id, 124);
+    t.is(landmark.photos.name, 'Top view of the castle.');
+    t.is(landmark.photos.date, '21st of November 2024');
+    t.deepEqual(landmark.photos.image, [0, 255]);
+    t.is(landmark.reviews.review_id, 24);
+    t.is(landmark.reviews.date, '21st of November 2024');
+    t.is(landmark.reviews.numOfStars, 4);
+    t.is(landmark.reviews.review_text, 'The view of the city is amazing from up there!');
+    t.is(landmark.reviews.comments, 'Very helpful!');
+}
 
