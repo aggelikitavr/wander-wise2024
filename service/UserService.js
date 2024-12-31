@@ -39,7 +39,18 @@ const createUserExample = () => {
  * returns User
  **/
 exports.createUser = function(body) {
-  return createUserExample();
+  return new Promise(function(_, reject) {
+    // Check if parameter `body` is provided
+    if (!body) {
+      reject(new Error("Body is required."));
+      return;
+    }
+    
+    // If `username` is provided properly, create the user
+    // and resolve the promise by using createUserExample,
+    // which returns a promise
+    return createUserExample();
+  })
 }
 
 
@@ -50,7 +61,17 @@ exports.createUser = function(body) {
  * returns User
  **/
 exports.createUsersWithListInput = function(body) {
-  return createUserExample();
+  return new Promise(function(_, reject) {
+    // Check if parameter `body` is provided
+    if (!body) {
+      reject(new Error("Body is required."));
+      return;
+    }
+
+    // If `body` is provided properly, resolve the promise
+    // using createUserExample, which returns a promise
+    return createUserExample();
+  })
 }
 
 
@@ -63,6 +84,13 @@ exports.createUsersWithListInput = function(body) {
  **/
 exports.deleteUser = function(username) {
   return new Promise(function(resolve, reject) {
+    // Check if parameter `username` is provided
+    if (!username) {
+      reject(new Error("Username is required."));
+      return;
+    }
+
+    // If `username` is provided properly, resolve the promise
     resolve();
   });
 }
@@ -75,7 +103,17 @@ exports.deleteUser = function(username) {
  * returns User
  **/
 exports.getUserByName = function(username) {
-  return createUserExample();
+  return new Promise(function(_, reject) {
+    // Check if parameter `username` is provided
+    if (!username) {
+      reject(new Error("Username is required."));
+      return;
+    }
+
+    // If `username` is provided properly, resolve the promise
+    // using createUserExample, which returns a promise
+    return createUserExample();
+  })
 }
 
 
@@ -88,6 +126,12 @@ exports.getUserByName = function(username) {
  **/
 exports.loginUser = function(username,password) {
   return new Promise(function(resolve, reject) {
+    // Check if both parameters `username` and `password` are provided
+    if (!username || !password) {
+      reject(new Error("Both username and password are required"))
+    }
+
+    // If `body` and `username` are provided properly, continue to resolve the promise
     var examples = {};
     examples['application/json'] = "";
     if (Object.keys(examples).length > 0) {
@@ -105,7 +149,9 @@ exports.loginUser = function(username,password) {
  * no response value expected for this operation
  **/
 exports.logoutUser = function() {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve, _) {
+    // The input `_` was originally the `reject` parameter, which is 
+    // intentionally unused in order to avoid violation.
     resolve();
   });
 }
@@ -121,6 +167,13 @@ exports.logoutUser = function() {
  **/
 exports.updateUser = function(body,username) {
   return new Promise(function(resolve, reject) {
+    // Check if both parameters `body` and `username` are provided
+    if (!body || !username) {
+      reject(new Error("Both body and username are required."));
+      return;
+    }
+
+    // If `body` and `username` are provided properly, resolve the promise
     resolve();
   });
 }
