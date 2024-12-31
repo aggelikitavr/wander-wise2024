@@ -110,7 +110,7 @@ exports.deleteLandmark = function(landmarkId) {
  * commentId Long The id that needs to be fetched. Use 2 for testing. 
  * returns Landmark
  **/
-exports.getCommentById = function(_, _, _) {
+exports.getCommentById = function() {
   return new Promise(function(resolve, reject) {
 
     if (Object.keys(examples).length > 0) {
@@ -130,7 +130,7 @@ exports.getCommentById = function(_, _, _) {
  * reviewId Long The id that needs to be fetched. Use 23 for testing. 
  * returns Landmark
  **/
-exports.getCommentsForReview = function(_, _) {
+exports.getCommentsForReview = function() {
   return new Promise(function(resolve, reject) {
 
     if (Object.keys(examples).length > 0) {
