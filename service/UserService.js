@@ -8,7 +8,9 @@
  * @returns {Promise}
  */
 const createUserExample = () => {
-  return new Promise(function(resolve, _reject) {
+  return new Promise(function(resolve, _) {
+    // The input `_` was originally the `reject` parameter, which is 
+    // intentionally unused in order to avoid violation.
     var examples = {};
     examples['application/json'] = {
   "firstName" : "John",
