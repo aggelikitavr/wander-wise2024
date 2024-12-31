@@ -3,52 +3,69 @@
 var utils = require('../utils/writer.js');
 var Landmarks = require('../service/LandmarksService');
 
-module.exports.createLandmark = function createLandmark (req, res, next, body) {
+// This function is used in the POST /landmarks endpoint to create the specified Landmark
+module.exports.createLandmark = function createLandmark (_, res, next, body) {
   Landmarks.createLandmark(body)
     .then(function (response) {
       utils.writeJson(res, response, 201);
+      next();
     })
     .catch(function (response) {
       utils.writeJson(res, response, 400);
+      next();
     });
 };
 
-module.exports.deleteLandmark = function deleteLandmark (req, res, next, landmarkId) {
+// This function is used in the DELETE /landmarks/{landmarkId} endpoint to delete the Landmark with the specified id
+module.exports.deleteLandmark = function deleteLandmark (_, res, next, landmarkId) {
   Landmarks.deleteLandmark(landmarkId)
     .then(function (response) {
-      utils.writeJson(res, response,200);
+      utils.writeJson(res, response, 200);
+      next();
     })
     .catch(function (response) {
-      utils.writeJson(res, response,400);
+      utils.writeJson(res, response, 400);
+      next();
     });
 };
 
-module.exports.getCommentById = function getCommentById (req, res, next, landmarkId, reviewId, commentId) {
+// This function is used in the GET /landmarks/{landmarkId}/reviews/{reviewId}/comments endpoint to get
+// a Comment related to a Review and Landmark with the specified ids
+module.exports.getCommentById = function getCommentById (_, res, landmarkId, next, reviewId, commentId) {
   Landmarks.getCommentById(landmarkId, reviewId, commentId)
     .then(function (response) {
       utils.writeJson(res, response);
+      next();
     })
     .catch(function (response) {
       utils.writeJson(res, response);
+      next();
     });
 };
 
-module.exports.getCommentsForReview = function getCommentsForReview (req, res, next, landmarkId, reviewId) {
+// This function is used in the GET /landmarks/{landmarkId}/reviews/{reviewId}/comments endpoint
+// to get all Comments related to a Review and Landmark with the specified ids
+module.exports.getCommentsForReview = function getCommentsForReview (_, res, next, landmarkId, reviewId) {
   Landmarks.getCommentsForReview(landmarkId, reviewId)
     .then(function (response) {
       utils.writeJson(res, response);
+      next();
     })
     .catch(function (response) {
       utils.writeJson(res, response);
+      next();
     });
 };
 
-module.exports.getLandmarkById = function getLandmarkById (req, res, next, landmarkId) {
+// This function is used in the GET /landmarks/{landmarkId} endpoint to get the Landmark with the specified id
+module.exports.getLandmarkById = function getLandmarkById (_, res, next, landmarkId) {
   Landmarks.getLandmarkById(landmarkId)
     .then(function (response) {
       utils.writeJson(res, response, 200);
+      next();
     })
     .catch(function (response) {
       utils.writeJson(res, response, 404);
+      next();
     });
 };
