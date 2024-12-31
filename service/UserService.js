@@ -10,7 +10,7 @@
 const createUserExample = () => {
   return new Promise(function(resolve, _) {
     // The input `_` was originally the `reject` parameter, which is 
-    // intentionally unused in order to avoid violation.
+    // intentionally declared as unused in order to avoid violation.
     var examples = {};
     examples['application/json'] = {
   "firstName" : "John",
@@ -45,7 +45,7 @@ exports.createUser = function(body) {
       reject(new Error("Body is required."));
       return;
     }
-    
+
     // If `username` is provided properly, create the user
     // and resolve the promise by using createUserExample,
     // which returns a promise
@@ -151,7 +151,7 @@ exports.loginUser = function(username,password) {
 exports.logoutUser = function() {
   return new Promise(function(resolve, _) {
     // The input `_` was originally the `reject` parameter, which is 
-    // intentionally unused in order to avoid violation.
+    // intentionally declared as unused in order to avoid violation.
     resolve();
   });
 }
