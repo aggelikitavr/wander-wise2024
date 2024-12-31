@@ -2,13 +2,12 @@
 
 
 /**
- * Create user
- * This can only be done by the logged in user.
- *
- * body User Created user object (optional)
- * returns User
- **/
-exports.createUser = function(body) {
+ * This is a helper function to create a user example. It does
+ * not take any input and it returns a Promise Object, which
+ * refers to the user example created.
+ * @returns {Promise}
+ */
+const createUserExample = () => {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
@@ -29,6 +28,19 @@ exports.createUser = function(body) {
   });
 }
 
+
+/**
+ * Create user
+ * This can only be done by the logged in user.
+ *
+ * body User Created user object (optional)
+ * returns User
+ **/
+exports.createUser = function(body) {
+  return createUserExample();
+}
+
+
 /**
  * Creates list of users with given input array
  *
@@ -36,24 +48,7 @@ exports.createUser = function(body) {
  * returns User
  **/
 exports.createUsersWithListInput = function(body) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "firstName" : "John",
-  "lastName" : "James",
-  "password" : "12345",
-  "userStatus" : 1,
-  "phone" : "12345",
-  "id" : 10,
-  "email" : "john@email.com",
-  "username" : "theUser"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return createUserExample();
 }
 
 
@@ -78,24 +73,7 @@ exports.deleteUser = function(username) {
  * returns User
  **/
 exports.getUserByName = function(username) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "firstName" : "John",
-  "lastName" : "James",
-  "password" : "12345",
-  "userStatus" : 1,
-  "phone" : "12345",
-  "id" : 10,
-  "email" : "john@email.com",
-  "username" : "theUser"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+  return createUserExample();
 }
 
 
