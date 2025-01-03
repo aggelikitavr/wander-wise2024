@@ -1324,6 +1324,8 @@ components:
           example: 0
         comments:
           type: array
+          items:
+            $ref: '#/components/schemas/Comment'
           default: []
           example: []
       required:
