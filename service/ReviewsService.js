@@ -11,6 +11,14 @@
  **/
 exports.addReview = function(body,landmarkId) {
   return new Promise(function(resolve, reject) {
+    // Check if both parameters `body` and `landmarkId` are provided.
+    // Also check that body is an object as needed.
+    if (!body || typeof body !== 'object' ||!landmarkId) {
+      reject(new Error("Both body and landmarkId are required."));
+      return;
+    }
+
+    // If `body` and `landmarkId` are provided properly, continue to resolve the promise
     const newReview = {
       review_id: body.review_id,
       review_text: body.review_text,
@@ -97,6 +105,13 @@ exports.evaluateReview = function(body,landmarkId,reviewId) {
  **/
 exports.getReviewsById = function(landmarkId,reviewId) {
   return new Promise(function(resolve, reject) {
+    // Check if both parameters `landmarkId` and `reviewId` are provided
+    if (!landmarkId || !reviewId) {
+      reject(new Error("Both landmarkId and reviewId are required."));
+      return;
+    }
+
+    // If `landmarkId` and `reviewId` are provided properly, continue to resolve the promise  
     var examples = {};
     examples['application/json'] = {
       "date" : "15th of November 2023",
@@ -130,6 +145,13 @@ exports.getReviewsById = function(landmarkId,reviewId) {
  **/
 exports.getReviewsForLandmark = function(landmarkId) {
   return new Promise(function(resolve, reject) {
+    // Check if the parameter `landmarkId` is provided
+    if (!landmarkId) {
+      reject(new Error("The parameter landmarkId is required."));
+      return;
+    }
+
+    // If `landmarkId` is provided properly, continue to resolve the promise
     var examples = {};
     examples['application/json'] = [
       {
