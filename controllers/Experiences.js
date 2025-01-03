@@ -39,8 +39,9 @@ module.exports.getExperienceById = function getExperienceById (_, res, next, exp
     });
 };
 
-module.exports.updateExperience = function updateExperience (_, res, next, body, landmarkId, experienceId) {
-  Experiences.updateExperience(body, landmarkId, experienceId)
+module.exports.updateExperience = function updateExperience(_, res, next, body, context) {
+  // context: { landmarkId, experienceId }
+  Experiences.updateExperience(body, context)
     .then(function (response) {
       utils.writeJson(res, response, 200);
       next();
