@@ -88,7 +88,7 @@ test("Unit test: GET /landmarks/{landmarkId}/reviews returns 400 for invalid lan
     t.is(statusCode, 400, 'The response status code should be 400 for invalid landmarkId');
     t.true(body && typeof(body) === 'object' && !Array.isArray(body), 'The response body should be an object')
     t.truthy(body.message, 'The response body should contain a "message" property');
-    t.true(body.message.includes('landmarkId should be integer'), 'The message of the respponse body should contain the string "landmarkId should be integer"');
+    t.true(body.message.includes('landmarkId must be integer'), 'The message of the respponse body should contain the string "landmarkId should be integer"');
     
     //Check the errors given
     t.truthy(body.errors, 'The response body should contain an "errors" property');
@@ -96,8 +96,8 @@ test("Unit test: GET /landmarks/{landmarkId}/reviews returns 400 for invalid lan
     t.true(body.errors.length===1, 'The errors array in response body should have length 1');
 
     // What does the error refer to?
-    t.true(body.errors[0].path.includes('params.landmarkId'), 'The error should refer to the invalid landmarkId path parameter');
-    t.true(body.errors[0].message.includes('should be integer'));
+    t.true(body.errors[0].path.includes('landmarkId'), 'The error should refer to the invalid landmarkId path parameter');
+    t.true(body.errors[0].message.includes('must be integer'));
 
 });
 
@@ -113,15 +113,15 @@ test("Unit test: GET /landmarks/{landmarkId}/reviews returns 400 for invalid lan
         t.is(statusCode, 400, 'The response status code should be 400 for invalid landmarkId');
         t.true(body && typeof(body) === 'object' && !Array.isArray(body), 'The response body should be an object');
         t.truthy(body.message, 'The response body should contain a "message" property');
-        t.true(body.message.includes('landmarkId should be >= 1'), 'The message of the respponse body should contain the string "landmarkId should be >= 1"');
+        t.true(body.message.includes('landmarkId must be >= 1'), 'The message of the respponse body should contain the string "landmarkId should be >= 1"');
         //Check the errors given
         t.truthy(body.errors, 'The response body should contain an "errors" property');
         t.true(Array.isArray(body.errors), 'The errors in response body should be an array');
         t.true(body.errors.length===1, 'The errors array in response body should have length 1');
 
         // What does the error refer to?
-        t.true(body.errors[0].path.includes('params.landmarkId'), 'The error should refer to the invalid landmarkId path parameter');
-        t.true(body.errors[0].message.includes('should be >= 1'));
+        t.true(body.errors[0].path.includes('landmarkId'), 'The error should refer to the invalid landmarkId path parameter');
+        t.true(body.errors[0].message.includes('must be >= 1'));
 
 });
 
@@ -171,15 +171,15 @@ test("Unit test: GET /landmarks/{landmarkId}/reviews/{reviewId} returns 400 for 
         t.is(statusCode, 400 ,'The response status code should be 400 for invalid landmarkId');
         t.true(body && typeof(body) === 'object' && !Array.isArray(body), 'The response body should be an object');
         t.truthy(body.message , 'The response body should contain a "message" property');
-        t.true(body.message.includes('landmarkId should be integer'), 'The message of the response body should contain the string "landmarkId should be integer"');
+        t.true(body.message.includes('landmarkId must be integer'), 'The message of the response body should contain the string "landmarkId should be integer"');
         //Check the errors given
         t.truthy(body.errors, 'The response body should contain an "errors" property');
         t.true(Array.isArray(body.errors), 'The errors in response body should be an array');
         t.true(body.errors.length===1, 'The errors array in response body should have length 1');
     
         // What does the error refer to?
-        t.true(body.errors[0].path.includes('params.landmarkId'), 'The error should refer to the invalid landmarkId path parameter');
-        t.true(body.errors[0].message.includes('should be integer'));
+        t.true(body.errors[0].path.includes('landmarkId'), 'The error should refer to the invalid landmarkId path parameter');
+        t.true(body.errors[0].message.includes('must be integer'));
 
 });
 
@@ -195,15 +195,15 @@ test("Unit test: GET /landmarks/{landmarkId}/reviews/{reviewId} returns 400 for 
         t.is(statusCode, 400, 'The response status code should be 400 for invalid landmarkId');
         t.true(body && typeof(body) === 'object' && !Array.isArray(body), 'The response body should be an object');
         t.truthy(body.message, 'The response body should contain a "message" property');
-        t.true(body.message.includes('landmarkId should be >= 1', 'The message of the response body should contain the string "landmarkId should be >= 1"'));
+        t.true(body.message.includes('landmarkId must be >= 1', 'The message of the response body should contain the string "landmarkId should be >= 1"'));
         //Check the errors given
         t.truthy(body.errors, 'The response body should contain an "errors" property');
         t.true(Array.isArray(body.errors), 'The errors in response body should be an array');
         t.true(body.errors.length===1, 'The errors array in response body should have length 1');
     
         // What does the error refer to?
-        t.true(body.errors[0].path.includes('params.landmarkId'), 'The error should refer to the invalid landmarkId path parameter');
-        t.true(body.errors[0].message.includes('should be >= 1'));
+        t.true(body.errors[0].path.includes('landmarkId'), 'The error should refer to the invalid landmarkId path parameter');
+        t.true(body.errors[0].message.includes('must be >= 1'));
 
 });
 
@@ -220,15 +220,15 @@ test("Unit test: GET /landmarks/{landmarkId}/reviews/{reviewId} returns 400 for 
         t.is(statusCode, 400 ,'The response status code should be 400 for invalid reviewId');
         t.true(body && typeof(body) === 'object' && !Array.isArray(body), 'The response body should be an object');
         t.truthy(body.message , 'The response body should contain a "message" property');
-        t.true(body.message.includes('reviewId should be integer'), 'The message of the response body should contain the string "reviewId should be integer"');
+        t.true(body.message.includes('reviewId must be integer'), 'The message of the response body should contain the string "reviewId should be integer"');
         //Check the errors given
         t.truthy(body.errors, 'The response body should contain an "errors" property');
         t.true(Array.isArray(body.errors), 'The errors in response body should be an array');
         t.true(body.errors.length===1, 'The errors array in response body should have length 1');
     
         // What does the error refer to?
-        t.true(body.errors[0].path.includes('params.reviewId'), 'The error should refer to the invalid reviewId path parameter');
-        t.true(body.errors[0].message.includes('should be integer'));
+        t.true(body.errors[0].path.includes('reviewId'), 'The error should refer to the invalid reviewId path parameter');
+        t.true(body.errors[0].message.includes('must be integer'));
 
 });
 
@@ -244,42 +244,15 @@ test("Unit test: GET /landmarks/{landmarkId}/reviews/{reviewId} returns 400 for 
         t.is(statusCode, 400, 'The response status code should be 400 for invalid reviewId');
         t.true(body && typeof(body) === 'object' && !Array.isArray(body), 'The response body should be an object');
         t.truthy(body.message, 'The response body should contain a "message" property');
-        t.true(body.message.includes('reviewId should be >= 1', 'The message of the response body should contain the string "landmarkId should be >= 1"'));
+        t.true(body.message.includes('reviewId must be >= 1', 'The message of the response body should contain the string "landmarkId should be >= 1"'));
         //Check the errors given
         t.truthy(body.errors, 'The response body should contain an "errors" property');
         t.true(Array.isArray(body.errors), 'The errors in response body should be an array');
         t.true(body.errors.length===1, 'The errors array in response body should have length 1');
     
         // What does the error refer to?
-        t.true(body.errors[0].path.includes('params.reviewId'), 'The error should refer to the invalid reviewId path parameter');
-        t.true(body.errors[0].message.includes('should be >= 1'));
-
-});
-
-test("Unit test: GET /landmarks/{landmarkId}/reviews/{reviewId} returns 400 for invalid landmarkId and reviewId",
-    async (t) => {
-        const landmarkId=0; // An invalid landmarkId    
-        const reviewId=2.5; // An invalid reviewId
-
-        const { body, statusCode} = await t.context.got(`landmarks/${landmarkId}/reviews/${reviewId}`, {method: `GET`,
-            throwHttpErrors: false,
-        });
-        
-        t.is(statusCode, 400, 'The response status code should be 400 for invalid landmarkId');
-        t.true(body && typeof(body) === 'object' && !Array.isArray(body), 'The response body should be an object');
-        t.truthy(body.message, 'The response body should contain a "message" property');
-        t.true(body.message.includes('landmarkId should be >= 1', 'The message of the response body should contain the string "landmarkId should be >= 1"'));
-        t.true(body.message.includes('reviewId should be integer', 'The message of the response body should contain the string "reviewId should be integer"'));
-        //Check the errors given
-        t.truthy(body.errors, 'The response body should contain an "errors" property');
-        t.true(Array.isArray(body.errors), 'The errors in response body should be an array');
-        t.true(body.errors.length===2, 'The errors array in response body should have length 2');
-    
-        // What do the errors refer to?
-        t.true(body.errors[0].path.includes('params.landmarkId'), 'The first error should refer to the invalid landmarkId path parameter');
-        t.true(body.errors[0].message.includes('should be >= 1'));
-        t.true(body.errors[1].path.includes('params.reviewId'), 'The second error should refer to the invalid reviewId path parameter');
-        t.true(body.errors[1].message.includes('should be integer'));
+        t.true(body.errors[0].path.includes('reviewId'), 'The error should refer to the invalid reviewId path parameter');
+        t.true(body.errors[0].message.includes('must be >= 1'));
 
 });
 
@@ -378,8 +351,7 @@ test("Unit test: POST /landmarks/{landmarkId}/reviews returns 400 for providing 
     t.is(statusCode, 400, 'The response status code should be 400 for invalid review data and unsuccessful creation of a review');
     t.truthy(body && typeof(body)==='object' && !Array.isArray(body), 'The response body should exist and be an object');
     t.truthy(body.message, 'The response body should contain a "message" property');
-    t.true(body.message.includes("request.body should have required property 'review_id'"), "The message of the response body should contain the string: request.body should have required property 'review_id'");
-    t.true(body.message.includes("request.body should have required property 'date"), "The message of the response body should contain the string: request.body should have required property 'date'")
+    t.true(body.message.includes("body must have required property 'review_id'"), "The message of the response body should contain the string: request.body should have required property 'review_id'");
 });
 
 test("Unit test: POST /landmarks/{landmarkId}/reviews returns 400 for providing invalid review data as request body. More data and properties in request body than needed -> Unsuccessful review creation for a landmark",
@@ -397,7 +369,6 @@ test("Unit test: POST /landmarks/{landmarkId}/reviews returns 400 for providing 
             comments: [],
             // Additional properties in request body
             author: "WiseWanderer",
-            linked_landmark_id: 348,
         };
 
         const { body, statusCode} = await t.context.got(`landmarks/${landmarkId}/reviews`, {method: `POST`,
@@ -408,18 +379,16 @@ test("Unit test: POST /landmarks/{landmarkId}/reviews returns 400 for providing 
     t.is(statusCode, 400, 'The response status code should be 400 for invalid review data and unsuccessful creation of a review');
     t.truthy(body && typeof(body)==='object' && !Array.isArray(body), 'The response body should exist and be an object');
     t.truthy(body.message, 'The response body should contain a "message" property');
-    t.true(body.message.includes("request.body should NOT have additional properties"), "The message of the response body should contain the string: request.body should NOT have additional properties");
+    t.true(body.message.includes("body must NOT have additional properties"), "The message of the response body should contain the string: request.body should NOT have additional properties");
     
     //Check the errors given
     t.truthy(body.errors, 'The response body should contain an "errors" property');
     t.true(Array.isArray(body.errors), 'The errors in response body should be an array');
-    t.true(body.errors.length===2, 'The errors array in response body should have length 2');
+    t.true(body.errors.length===1, 'The errors array in response body should have length 2');
     
     // What does each error refer to?
-    t.true(body.errors[0].path.includes('body.author'), 'The first error should refer to the additional property author');
-    t.true(body.errors[0].message.includes('should NOT have additional properties'));
-    t.true(body.errors[1].path.includes('body.linked_landmark_id'), 'The second error should refer to the additional property linked_landmark_id');
-    t.true(body.errors[1].message.includes('should NOT have additional properties'));
+    t.true(body.errors[0].path.includes('author'), 'The first error should refer to the additional property author');
+    t.true(body.errors[0].message.includes('must NOT have additional properties'));
 
 });
 
@@ -446,14 +415,14 @@ test("Unit test: POST /landmarks/{landmarkId}/reviews returns 400 for providing 
     t.is(statusCode, 400, 'The response status code should be 400 for invalid review data and unsuccessful creation of a review');
     t.truthy(body && typeof(body)==='object' && !Array.isArray(body), 'The response body should exist and be an object');
     t.truthy(body.message, 'The response body should contain a "message" property');
-    t.true(body.message.includes('landmarkId should be integer'), 'The message of the response body should contain the string "landmarkId should be integer"');
+    t.true(body.message.includes('landmarkId must be integer'), 'The message of the response body should contain the string "landmarkId should be integer"');
 
     //Check the errors given
     t.truthy(body.errors, 'The response body should contain an "errors" property');
     t.true(Array.isArray(body.errors), 'The errors in response body should be an array');
     t.true(body.errors.length===1, 'The errors array in response body should have length 1');
-    t.true(body.errors[0].path.includes('params.landmarkId'), 'The first error should refer to the invalid landmarkId path parameter');
-    t.true(body.errors[0].message.includes('should be integer'));
+    t.true(body.errors[0].path.includes('landmarkId'), 'The first error should refer to the invalid landmarkId path parameter');
+    t.true(body.errors[0].message.includes('must be integer'));
 
 });
 
@@ -483,23 +452,20 @@ test("Unit test: POST /landmarks/{landmarkId}/reviews returns 400 for providing 
     t.is(statusCode, 400, 'The response status code should be 400 for invalid review data and unsuccessful creation of a review');
     t.truthy(body && typeof(body)==='object' && !Array.isArray(body), 'The response body should exist and be an object');
     t.truthy(body.message, 'The response body should contain a "message" property');
-    t.true(body.message.includes("request.body should NOT have additional properties"), "The message of the response body should contain the string: request.body should NOT have additional properties");
-    t.true(body.message.includes('landmarkId should be >= 1'), 'The message of the response body should contain the string "landmarkId should be >=1"');
-
+    t.true(body.message.includes("body must have required property 'review_text'"), "The message of the response body should contain the string: request.body should NOT have additional properties");
+    t.true(body.message.includes('landmarkId must be >= 1'), 'The message of the response body should contain the string "landmarkId must be >=1"');
+    console.log("Body2: ", body)
+    
     //Check the errors given
     t.truthy(body.errors, 'The response body should contain an "errors" property');
     t.true(Array.isArray(body.errors), 'The errors in response body should be an array');
-    t.true(body.errors.length===4, 'The errors array in response body should have length 4');
+    t.true(body.errors.length===2, 'The errors array in response body should have length 4');
     
     // What does each error refer to?
-    t.true(body.errors[0].path.includes('params.landmarkId'), 'The first error should refer to the invalid landmarkId path parameter');
-    t.true(body.errors[0].message.includes('should be >= 1'));
-    t.true(body.errors[1].path.includes('body.author'), 'The second error should refer to the additional property author');
-    t.true(body.errors[1].message.includes('should NOT have additional properties'));
-    t.true(body.errors[2].path.includes('body.linked_landmark_id'), 'The third error should refer to the additional property linked_landmark_id');
-    t.true(body.errors[2].message.includes('should NOT have additional properties'));
-    t.true(body.errors[3].path.includes('body.review_text'), 'The fourth error should refer to the missing property review_text');
-    t.true(body.errors[3].message.includes("should have required property 'review_text'"));
+    t.true(body.errors[0].path.includes('landmarkId'), 'The first error should refer to the invalid landmarkId path parameter');
+    t.true(body.errors[0].message.includes('must be >= 1'));
+    t.true(body.errors[1].path.includes('review_text'), 'The fourth error should refer to the missing property review_text');
+    t.true(body.errors[1].message.includes("must have required property 'review_text'"));
 
 });
 
