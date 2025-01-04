@@ -5,7 +5,7 @@ var Photos = require('../service/PhotosService');
 
 // This function is used in the POST/landmarks/{landmarkId}/photos endpoint to add a new photo
 // for a specific landmark using landmarkId
-module.exports.addPhoto = function addPhoto (_, res, next, body, landmarkId) {
+module.exports.addPhoto = function addPhoto ({ _, res, next, body, landmarkId }) {
   Photos.addPhoto(body, landmarkId)
     .then(function (response) {
       utils.writeJson(res, response, 201); // Photo added successfully
