@@ -3,7 +3,8 @@
 var path = require('path');
 var http = require('http');
 
-var oas3Tools = require('oas3-tools');
+// var oas3Tools = require('oas3-tools');
+const swaggerToolsOas3 = require('swagger-tools-oas3');
 var serverPort = 8080;
 
 // swaggerRouter configuration
@@ -14,7 +15,8 @@ var options = {
     mock: true
 };
 
-var expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
+// var expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
+var expressAppConfig = swaggerToolsOas3.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);
 var app = expressAppConfig.getApp();
 
 // Initialize the Swagger middleware
