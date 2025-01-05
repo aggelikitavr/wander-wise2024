@@ -19,7 +19,7 @@ module.exports.addPhoto = function addPhoto ({ _, res, next, body, landmarkId })
 
 // This function is used in the DELETE/landmarks/{landmarkId}/photos/{photoId} endpoint to delete a photo
 // of a specific landmark using landmarkId and photoId
-module.exports.deletePhoto = function deletePhoto (_, res, next, data) {
+module.exports.deletePhoto = function deletePhoto ({_, res, next, data}) {
   const { landmarkId, photoId } = data;
   Photos.deletePhoto(landmarkId, photoId)
     .then(function (response) {
@@ -34,7 +34,7 @@ module.exports.deletePhoto = function deletePhoto (_, res, next, data) {
 
 // This function is used in the GET/landmarks/{landmarkId}/photos endpoint to retrieve photos
 // of a specific landmark using landmarkId
-module.exports.getPhotosForLandmark = function getPhotosForLandmark (_, res, next, landmarkId) {
+module.exports.getPhotosForLandmark = function getPhotosForLandmark ({_, res, next, landmarkId}) {
   Photos.getPhotosForLandmark(landmarkId)
     .then(function (response) {
       utils.writeJson(res, response, 200); // Photo retrieved successfully
