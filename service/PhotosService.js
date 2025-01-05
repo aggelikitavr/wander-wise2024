@@ -24,7 +24,7 @@ exports.addPhoto = function(_) {
  * photoId Long The id that needs to be fetched. Use 8 for testing. 
  * no response value expected for this operation
  **/
-exports.deletePhoto = function({landmarkId,photoId}) {
+exports.deletePhoto = function(_) {
   return new Promise(function(resolve, _) {
     resolve();
   });
