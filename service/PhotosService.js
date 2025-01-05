@@ -9,8 +9,8 @@
  * landmarkId Long The id that needs to be fetched. Use 348 for testing. 
  * no response value expected for this operation
  **/
-exports.addPhoto = function(body,landmarkId) {
-  return new Promise(function(resolve, reject) {
+exports.addPhoto = function(_) {
+  return new Promise(function(resolve, _) {
     resolve();
   });
 }
@@ -24,8 +24,8 @@ exports.addPhoto = function(body,landmarkId) {
  * photoId Long The id that needs to be fetched. Use 8 for testing. 
  * no response value expected for this operation
  **/
-exports.deletePhoto = function(landmarkId,photoId) {
-  return new Promise(function(resolve, reject) {
+exports.deletePhoto = function({landmarkId,photoId}) {
+  return new Promise(function(resolve, _) {
     resolve();
   });
 }
@@ -37,8 +37,8 @@ exports.deletePhoto = function(landmarkId,photoId) {
  * landmarkId Long The id that needs to be fetched. Use 348 for testing. 
  * returns Photo
  **/
-exports.getPhotosForLandmark = function(landmarkId) {
-  return new Promise(function(resolve, reject) {
+exports.getPhotosForLandmark = function(_) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "date" : "10th of August 2017",
