@@ -199,7 +199,7 @@ Cypress.Commands.add('CSShelperFunctionAddingRequestBodyForPOSTReviewOperation',
             .find('.opblock-description-wrapper > div')
             .find('.renderedMarkdown > p').should('exist').should('contain', 'Review')
             .parent().parent()
-            .children('div').eq(2)
+            .children('div').eq(1)
             .find('.body-param > textarea').should('exist').and('be.visible')
             .clear()
             .type(JSON.stringify(requestBody, null, 2), { parseSpecialCharSequences: false });

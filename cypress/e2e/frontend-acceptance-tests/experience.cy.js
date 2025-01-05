@@ -81,13 +81,13 @@ context('Experience', () => {
         cy.get('.try-out').contains('Try it out').click();
     
         // Type the experience ID in the input field (valid ID)
-        cy.get('input[placeholder="experienceId - Experience id to delete"]').type('22');
+        cy.get('input[placeholder="experienceId"]').type('22');
     
         // Execute the request
         cy.get('.execute-wrapper').contains('Execute').click();
     
         // Assert the response status is 200
-        cy.get('.col.response-col_status')
+        cy.get('.response > .response-col_status')
         .contains('200');
       
     });
@@ -108,7 +108,7 @@ context('Experience', () => {
         cy.get('.try-out').contains('Try it out').click();
 
         // Type the invalid experience ID in the input field
-        cy.get('input[placeholder="experienceId - Experience id to delete"]').type(invalidExperienceId);
+        cy.get('input[placeholder="experienceId"]').type(invalidExperienceId);
 
         // Execute the request
         cy.get('.execute-wrapper').contains('Execute').click();

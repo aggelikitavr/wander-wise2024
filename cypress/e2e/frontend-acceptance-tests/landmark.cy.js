@@ -28,8 +28,8 @@ context('Landmark', () => {
             cy.get('.body-param').type(char);
         });
         cy.get('.execute').click();
-        cy.get('html body div#swagger-ui section.swagger-ui.swagger-container div.swagger-ui div div.wrapper section.block.col-12.block-desktop.col-12-desktop div span div.opblock-tag-section.is-open div span div#operations-Landmarks-createLandmark.opblock.opblock-post.is-open div div.opblock-body div.responses-wrapper div.responses-inner div div table.responses-table.live-responses-table tbody tr.response td.col.response-col_description div div.highlight-code pre.microlight')
-        .invoke('text').then((op_text) => {expect(op_text).to.eq('{\n  "message": "request.body.id should be integer",\n  "errors": [\n    {\n      "path": ".body.id",\n      "message": "should be integer",\n      "errorCode": "type.openapi.validation"\n    }\n  ]\n}');}); // Very spacing-strict...
+        cy.get('html body div#swagger-ui section.swagger-ui.swagger-container div.swagger-ui div div.wrapper section.block.col-12.block-desktop.col-12-desktop div span div.opblock-tag-section.is-open div.no-margin div.operation-tag-content span div#operations-Landmarks-createLandmark.opblock.opblock-post.is-open div.no-margin div.opblock-body div.responses-wrapper div.responses-inner div div table.responses-table.live-responses-table tbody tr.response td.response-col_description div div.highlight-code pre.microlight')
+        .invoke('text').then((op_text) => {expect(op_text).to.eq('{\n  "message": "request/body/id must be integer",\n  "errors": [\n    {\n      "path": "/body/id",\n      "message": "must be integer",\n      "errorCode": "type.openapi.validation"\n    }\n  ]\n}');}); // Very spacing-strict...
     });
 
     it('should return 200 (the Landmark with landmarkId was found and retrieved)', () => {
@@ -62,10 +62,10 @@ context('Landmark', () => {
             .click();
 
         cy.get('.try-out').contains('Try it out').click();
-        cy.get('input[placeholder="landmarkId - Landmark id to delete"]').type(landmarkId);
+        cy.get('input[placeholder="landmarkId"]').type(landmarkId);
         cy.get('.execute-wrapper').contains('Execute').click();
 
-        cy.get('.col.response-col_status').contains('200'); // Expecting 200 OK
+        cy.get('.response > .response-col_status').contains('200'); // Expecting 200 OK
         });
 
     it('delete landmark with invalid id', () => {
@@ -83,10 +83,10 @@ context('Landmark', () => {
             .click();
 
         cy.get('.try-out').contains('Try it out').click();
-        cy.get('input[placeholder="landmarkId - Landmark id to delete"]').type(invalidLandmarkId);
+        cy.get('input[placeholder="landmarkId"]').type(invalidLandmarkId);
         cy.get('.execute-wrapper').contains('Execute').click();
 
-        cy.get('.col.response-col_status').contains('400'); // Expecting 400 Bad Request
+        cy.get('.response > .response-col_status').contains('400'); // Expecting 400 Bad Request
         });
 
     it('delete landmark with invalid type of id', () => {
@@ -104,9 +104,9 @@ context('Landmark', () => {
         .click();
 
     cy.get('.try-out').contains('Try it out').click();
-    cy.get('input[placeholder="landmarkId - Landmark id to delete"]').type(invalidLandmarkId);
+    cy.get('input[placeholder="landmarkId"]').type(invalidLandmarkId);
     cy.get('.execute-wrapper').contains('Execute').click();
 
-    cy.get('.col.response-col_status').contains('400'); // Expecting 400 Bad Request
+    cy.get('.response > .response-col_status').contains('400'); // Expecting 400 Bad Request
     });
 });
