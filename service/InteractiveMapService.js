@@ -1,32 +1,53 @@
 'use strict';
 
-
 /**
- * See/Interact interactive map
- * This can only be done by the logged-in user.
+ * Provides an interactive map with details about a specific area. 
+ * This functionality is restricted to logged-in users.
  *
- * returns Interactive_map
- **/
-exports.interactive_map = function() {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "name" : "Center of Thessaloniki",
-  "details" : "Located near the city center, the White Tower is...",
-  "id" : 10,
-  "area_shown" : [ {
-    "description" : "Entity description here",
-    "entity_id" : 1
-  }, {
-    "description" : "Entity description here",
-    "entity_id" : 1
-  } ]
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
+ * @function interactive_map
+ * @returns {Promise<Object>} A promise resolving to an interactive map object.
+ * 
+ * Example Response:
+ * {
+ *   "name": "Center of Thessaloniki",
+ *   "details": "Located near the city center, the White Tower is...",
+ *   "id": 10,
+ *   "area_shown": [
+ *     {
+ *       "description": "Entity description here",
+ *       "entity_id": 1
+ *     },
+ *     {
+ *       "description": "Another entity description",
+ *       "entity_id": 2
+ *     }
+ *   ]
+ * }
+ */
+exports.interactive_map = function () {
+  return new Promise(function (resolve, reject) {
+    // Sample response example for the interactive map
+    const responseExample = {
+      name: "Center of Thessaloniki",
+      details: "Located near the city center, the White Tower is a historical monument and museum.",
+      id: 10,
+      area_shown: [
+        {
+          description: "Historical monument near the coast.",
+          entity_id: 1
+        },
+        {
+          description: "Popular tourist spot and cultural landmark.",
+          entity_id: 2
+        }
+      ]
+    };
+
+    // Resolving the promise with the example data
+    if (Object.keys(responseExample).length > 0) {
+      resolve(responseExample);
     } else {
-      resolve();
+      resolve(); // Return an empty response if no data is available
     }
   });
-}
-
+};
