@@ -1,17 +1,18 @@
 'use strict';
 
 // Required dependencies
-var utils = require('../utils/writer.js');
-var InteractiveMap = require('../service/InteractiveMapService');
+const utils = require('../utils/writer.js');
+const InteractiveMap = require('../service/InteractiveMapService');
 
 /**
  * Handles the interactive map request
  * 
- * @param {Object} req - The request object
+ * @param {Object} _ - Unused request object
  * @param {Object} res - The response object
  * @param {Function} next - The next middleware function
+ * @description Calls the service function and handles the promise response for the interactive map.
  */
-module.exports.interactive_map = function interactive_map(req, res, next) {
+module.exports.interactive_map = function interactive_map(_, res, next) {
   // Call the service function and handle the promise response
   InteractiveMap.interactive_map()
     .then(function(response) {

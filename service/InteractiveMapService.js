@@ -25,7 +25,7 @@
  * }
  */
 exports.interactive_map = function () {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     // Sample response example for the interactive map
     const responseExample = {
       name: "Center of Thessaloniki",
@@ -44,10 +44,6 @@ exports.interactive_map = function () {
     };
 
     // Resolving the promise with the example data
-    if (Object.keys(responseExample).length > 0) {
-      resolve(responseExample);
-    } else {
-      resolve(); // Return an empty response if no data is available
-    }
+    resolve(responseExample);
   });
 };
