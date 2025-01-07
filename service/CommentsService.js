@@ -17,7 +17,7 @@
  * This function is for testing purposes and currently does not perform any actual operation.
  */
 exports.addComment = function (_, landmarkId, reviewId) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     // Simulating successful operation for testing purposes
     resolve();
   });
@@ -35,7 +35,7 @@ exports.addComment = function (_, landmarkId, reviewId) {
  * This function is for testing purposes and currently does not perform any actual operation.
  */
 exports.deleteComment = function (landmarkId, reviewId, _) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(function (resolve) {
     // Simulating successful operation for testing purposes
     resolve();
   });
