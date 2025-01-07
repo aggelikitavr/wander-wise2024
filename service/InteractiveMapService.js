@@ -1,25 +1,40 @@
 'use strict';
 
-// Required dependencies
-const utils = require('../utils/writer.js');
-const InteractiveMap = require('../service/InteractiveMapService');
+/**
+ * @module InteractiveMapService
+ * This module handles operations related to viewing and interacting with the interactive map.
+ */
 
 /**
- * Handles the interactive map request
+ * Retrieves an interactive map.
  * 
- * @param {Object} res - The response object
- * @param {Function} next - The next middleware function
- * @description Calls the service function and handles the promise response for the interactive map.
+ * @function interactive_map
+ * @returns {Promise<Object>} A promise that resolves with an example of an interactive map in JSON format.
+ * @description This function simulates the retrieval of an interactive map, including metadata and shown areas.
+ * Note: This is a stub function for testing and does not connect to an actual database or service.
  */
-module.exports.interactive_map = function interactive_map(res, next) {
-  // Call the service function and handle the promise response
-  InteractiveMap.interactive_map()
-    .then(function (response) {
-      // On success, write the JSON response
-      utils.writeJson(res, response);
-    })
-    .catch(function (response) {
-      // On error, write the error response as JSON
-      utils.writeJson(res, response);
-    });
+exports.interactive_map = function () {
+  return new Promise(function (resolve) {
+    // Example response to simulate successful map retrieval
+    const examples = {
+      'application/json': {
+        "name": "Center of Thessaloniki",
+        "details": "Located near the city center, the White Tower is a landmark of Thessaloniki.",
+        "id": 10,
+        "area_shown": [
+          {
+            "description": "Entity description here",
+            "entity_id": 1
+          },
+          {
+            "description": "Entity description here",
+            "entity_id": 2
+          }
+        ]
+      }
+    };
+
+    // Resolving the promise with the first example in JSON format
+    resolve(examples['application/json']);
+  });
 };
