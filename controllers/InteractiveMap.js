@@ -5,22 +5,29 @@ const utils = require('../utils/writer.js');
 const InteractiveMap = require('../service/InteractiveMapService');
 
 /**
+ * @module InteractiveMapController
+ * This module handles API requests related to the interactive map feature.
+ */
+
+/**
  * Handles the interactive map retrieval request.
  * 
- * @param {Object} _ - Unused HTTP request object.
+ * @function interactive_map
+ * @param {Object} req - The HTTP request object (unused in this implementation).
  * @param {Object} res - The HTTP response object used to send the response.
- * @param {Function} _next - Unused middleware function.
- * @description Calls the `interactive_map` service function and processes the promise.
+ * @param {Function} next - The next middleware function in the pipeline.
+ * @returns {void}
+ * @description Calls the interactive_map service function and processes the returned promise. 
  * On success, sends the interactive map data as JSON. On failure, sends the error response as JSON.
  */
-module.exports.interactive_map = function interactive_map(_, res, _next) {
+module.exports.interactive_map = function interactive_map(req, res, next) {
   InteractiveMap.interactive_map()
     .then(function (response) {
-      // Send the successful response as JSON
+      // Write the successful response as JSON
       utils.writeJson(res, response);
     })
     .catch(function (response) {
-      // Send the error response as JSON
+      // Write the error response as JSON
       utils.writeJson(res, response);
     });
 };

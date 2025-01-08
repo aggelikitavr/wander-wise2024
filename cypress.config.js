@@ -2,19 +2,17 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: "http://localhost:8060", // Set your base URL for tests
-    specPattern: "cypress/e2e/**/*.cy.{js,jsx,ts,tsx}", // Customize test file patterns
-    supportFile: "cypress/support/e2e.js", // Specify the support file location
-    viewportWidth: 1280, // Default viewport width
-    viewportHeight: 720, // Default viewport height
     setupNodeEvents(on, config) {
-      // Implement node event listeners here
-      on("task", {
-        log(message) {
-          console.log(message);
-          return null;
-        },
+      // Placeholder for future node event listeners
+      // Example:
+      on('before:run', () => {
+        console.log('Test run is starting');
       });
     },
+    baseUrl: "http://localhost:8060", // Set a base URL for your application
+    specPattern: "cypress/e2e/**/*.cy.js", // Define the pattern for spec files
+    supportFile: "cypress/support/e2e.js", // Specify the support file location
+    viewportWidth: 1280, // Set default viewport width
+    viewportHeight: 720, // Set default viewport height
   },
 });
