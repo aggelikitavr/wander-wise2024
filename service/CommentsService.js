@@ -10,8 +10,8 @@
  * reviewId Long The id that needs to be fetched. Use 23 for testing. 
  * no response value expected for this operation
  **/
-exports.addComment = function(body,landmarkId,reviewId) {
-  return new Promise(function(resolve, reject) {
+exports.addComment = function() {
+  return new Promise(function(resolve, _) {
     resolve();
   });
 }
@@ -25,8 +25,8 @@ exports.addComment = function(body,landmarkId,reviewId) {
  * commentId Long The id that needs to be fetched. Use 2 for testing. 
  * no response value expected for this operation
  **/
-exports.deleteComment = function(landmarkId,reviewId,commentId) {
-  return new Promise(function(resolve, reject) {
+exports.deleteComment = function() {
+  return new Promise(function(resolve, _) {
     resolve();
   });
 }
