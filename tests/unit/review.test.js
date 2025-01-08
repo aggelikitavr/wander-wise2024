@@ -454,7 +454,7 @@ test("Unit test: POST /landmarks/{landmarkId}/reviews returns 400 for providing 
     t.truthy(body.message, 'The response body should contain a "message" property');
     t.true(body.message.includes("body must have required property 'review_text'"), "The message of the response body should contain the string: request.body should NOT have additional properties");
     t.true(body.message.includes('landmarkId must be >= 1'), 'The message of the response body should contain the string "landmarkId must be >=1"');
-    console.log("Body2: ", body)
+    
     
     //Check the errors given
     t.truthy(body.errors, 'The response body should contain an "errors" property');
@@ -481,7 +481,7 @@ test('DELETE /reviews/:reviewId deletes a review', async (t) => {
     // Make the DELETE request to remove the review
     const response = await got.delete(`landmarks/${landmarkId}/reviews/${reviewId}`);
 
-    console.log(response.body); // Log the response body for debugging
+    
 
     // Validate that the response status code is 200, indicating successful deletion
     t.is(response.statusCode, 200); // Expecting No Content (200 OK) on successful deletion
