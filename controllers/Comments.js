@@ -1,4 +1,3 @@
-
 'use strict';
 
 /**
@@ -14,16 +13,16 @@ const Comments = require('../service/CommentsService');
  * Add a comment to a specific review of a landmark.
  * 
  * @function addComment
- * @param {Object} _ - Unused HTTP request object.
+ * @param {Object} req - The HTTP request object (unused here).
  * @param {Object} res - The HTTP response object.
- * @param {Function} _ - Unused next middleware function.
+ * @param {Function} next - The next middleware function (unused here).
  * @param {Object} body - The body of the request, containing the comment details.
  * @param {string} landmarkId - The unique identifier of the landmark.
  * @param {string} reviewId - The unique identifier of the review.
  * @returns {void}
  * @description Adds a comment to a specified review of a landmark. Responds with the added comment details or an error.
  */
-module.exports.addComment = function addComment(_, res, _, body, landmarkId, reviewId) {
+module.exports.addComment = function addComment(req, res, next, body, landmarkId, reviewId) {
   Comments.addComment(body, landmarkId, reviewId)
     .then(function (response) {
       // Successfully added the comment
@@ -39,16 +38,16 @@ module.exports.addComment = function addComment(_, res, _, body, landmarkId, rev
  * Delete a comment from a specific review of a landmark.
  * 
  * @function deleteComment
- * @param {Object} _ - Unused HTTP request object.
+ * @param {Object} req - The HTTP request object (unused here).
  * @param {Object} res - The HTTP response object.
- * @param {Function} _ - Unused next middleware function.
+ * @param {Function} next - The next middleware function (unused here).
  * @param {string} landmarkId - The unique identifier of the landmark.
  * @param {string} reviewId - The unique identifier of the review.
  * @param {string} commentId - The unique identifier of the comment to delete.
  * @returns {void}
  * @description Deletes a specified comment from a review of a landmark. Responds with success confirmation or an error.
  */
-module.exports.deleteComment = function deleteComment(_, res, _, landmarkId, reviewId, commentId) {
+module.exports.deleteComment = function deleteComment(req, res, next, landmarkId, reviewId, commentId) {
   Comments.deleteComment(landmarkId, reviewId, commentId)
     .then(function (response) {
       // Successfully deleted the comment
