@@ -8,7 +8,7 @@
  * returns Interactive_map
  **/
 exports.interactive_map = function() {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function(resolve, _) {
     var examples = {};
     examples['application/json'] = {
   "name" : "Center of Thessaloniki",
